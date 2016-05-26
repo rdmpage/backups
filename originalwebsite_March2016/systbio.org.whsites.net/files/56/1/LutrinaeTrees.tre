@@ -1,0 +1,7 @@
+((((Amblonyx_cinereus,(Aonyx_capensis,Aonyx_congicus)),((Lutra_maculicollis,Lutrogale_perspicillata),Pteronura_brasiliensis)),((Lontra_canadensis,((Lontra_felina,Lontra_provocax),Lontra_longicaudis)),(Lutra_lutra,Lutra_sumatrana))),Enhydra_lutris);
+((Amblonyx_cinereus,Aonyx_capensis,Aonyx_congicus,Lontra_canadensis,Lontra_felina,Lontra_longicaudis,Lontra_provocax,Lutra_lutra,Lutra_maculicollis,Lutra_sumatrana,Lutrogale_perspicillata,Pteronura_brasiliensis),Enhydra_lutris);
+(((Amblonyx_cinereus,Aonyx_capensis),Enhydra_lutris),(Lontra_canadensis,Lutra_lutra),Pteronura_brasiliensis);
+((((Amblonyx_cinereus,((Lontra_canadensis,Lontra_felina),Lontra_longicaudis,Lontra_provocax)),((Lutra_lutra,(Lutra_maculicollis,Lutra_sumatrana)),(Lutrogale_perspicillata,Pteronura_brasiliensis))),(Aonyx_capensis,Aonyx_congicus)),Enhydra_lutris);
+(Amblonyx_cinereus,(Aonyx_capensis,Aonyx_congicus),Enhydra_lutris,(Lontra_canadensis,Lontra_felina,Lontra_longicaudis,Lontra_provocax),(Lutra_lutra,Lutra_maculicollis,Lutra_sumatrana),Lutrogale_perspicillata,Pteronura_brasiliensis);
+((((((Amblonyx_cinereus,(Aonyx_capensis,Aonyx_congicus)),Enhydra_lutris),Pteronura_brasiliensis),Lutrogale_perspicillata),(((Lontra_canadensis,Lontra_longicaudis,Lontra_provocax),Lontra_felina),(Lutra_lutra,Lutra_sumatrana))),Lutra_maculicollis);
+

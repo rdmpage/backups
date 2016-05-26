@@ -1,0 +1,310 @@
+#NEXUS
+[written Wed Oct 19 15:36:15 EDT 2005 by Mesquite  version 1.06 (build g97) at gisella-caccones-Computer.local/192.168.1.100]
+
+BEGIN TAXA;
+	TITLE Untitled_Block_of_Taxa;
+	DIMENSIONS NTAX=38;
+	TAXLABELS
+		Endomyzostoma_n.__sp._1 Endomyzostoma_cysticolum Endomyzostoma_deformator Endomyzostoma_n._sp._3 Endomyzostoma_tenuispinum Endomyzostoma_clarki Endomyzostoma_n._sp._2 Pulvinomyzostomum_pulvinar Myzostoma_cirriferum Myzostoma_glabrum Myzostoma_alatum Contramyzostoma_sphaera Myzostoma_capitocutis Myzostoma_nigromaculatum Myzostoma_coriaceum Myzostoma_ambiguum Myzostoma_mortenseni Myzostoma_polycyclus Myzostoma_toliarense Notopharyngoides_aruensis Myzostoma_cuniculus Myzostoma_pseudocuniculus Myzostoma_laingense Myzostoma_furcatum Myzostoma_fissum Hypomyzostoma_n._sp._1 Mesomyzostoma_n._sp._2 Mesomyzostoma_n._sp._3b Mesomyzostoma_n._sp._3a Mesomyzostoma_katoi Mesomyzostoma_n._sp._1b Mesomyzostoma_n._sp._1a Mesomyzostoma_reichenspergi Mesomyzostoma_n._sp._4b Mesomyzostoma_n._sp._4a Hypomyzostoma_sp._aff._crosslandi_b Hypomyzostoma_fasciatum Hypomyzostoma_sp._aff._crosslandi_ba 
+	;
+
+END;
+
+
+BEGIN CHARACTERS;
+	TITLE  Matrix_from_clipboard;
+	DIMENSIONS  NCHAR=2;
+	FORMAT DATATYPE = STANDARD GAP = - MISSING = ? SYMBOLS = "  0 1 2 3 4 5 6 7";
+	CHARSTATELABELS 
+		1 Lifestyle_ /  General_Ectocommensal Arm_ectocommensal Fixed_ectoparasite Soft_Cysticolous_Parasite Gallicolous_Parasite Anterior_Digestive_System_Endoparasite Endoparasite_of_coelomic_cavities Calcified_Cysticolous, 2 Host /  comatulid stalked ; 
+	MATRIX
+	Endomyzostoma_n.__sp._1               30
+
+	Endomyzostoma_cysticolum              70
+
+	Endomyzostoma_deformator              41
+
+	Endomyzostoma_n._sp._3                01
+
+	Endomyzostoma_tenuispinum             41
+
+	Endomyzostoma_clarki                  41
+
+	Endomyzostoma_n._sp._2                41
+
+	Pulvinomyzostomum_pulvinar            50
+
+	Myzostoma_cirriferum                  00
+
+	Myzostoma_glabrum                     20
+
+	Myzostoma_alatum                      20
+
+	Contramyzostoma_sphaera               30
+
+	Myzostoma_capitocutis                 00
+
+	Myzostoma_nigromaculatum              00
+
+	Myzostoma_coriaceum                   00
+
+	Myzostoma_ambiguum                    00
+
+	Myzostoma_mortenseni                  00
+
+	Myzostoma_polycyclus                  00
+
+	Myzostoma_toliarense                  30
+
+	Notopharyngoides_aruensis             50
+
+	Myzostoma_cuniculus                   10
+
+	Myzostoma_pseudocuniculus             10
+
+	Myzostoma_laingense                   10
+
+	Myzostoma_furcatum                    10
+
+	Myzostoma_fissum                      10
+
+	Hypomyzostoma_n._sp._1                10
+
+	Mesomyzostoma_n._sp._2                60
+
+	Mesomyzostoma_n._sp._3b               60
+
+	Mesomyzostoma_n._sp._3a               60
+
+	Mesomyzostoma_katoi                   60
+
+	Mesomyzostoma_n._sp._1b               60
+
+	Mesomyzostoma_n._sp._1a               60
+
+	Mesomyzostoma_reichenspergi           60
+
+	Mesomyzostoma_n._sp._4b               60
+
+	Mesomyzostoma_n._sp._4a               60
+
+	Hypomyzostoma_sp._aff._crosslandi_b   10
+
+	Hypomyzostoma_fasciatum               10
+
+	Hypomyzostoma_sp._aff._crosslandi_ba  10
+
+
+;
+
+END;
+
+BEGIN TREES;
+	Title 'Trees from "consensus tree"';
+	LINK Taxa = Untitled_Block_of_Taxa;
+	TRANSLATE
+		1 Endomyzostoma_n.__sp._1,
+		2 Endomyzostoma_cysticolum,
+		3 Endomyzostoma_deformator,
+		4 Endomyzostoma_n._sp._3,
+		5 Endomyzostoma_tenuispinum,
+		6 Endomyzostoma_clarki,
+		7 Endomyzostoma_n._sp._2,
+		8 Pulvinomyzostomum_pulvinar,
+		9 Myzostoma_cirriferum,
+		10 Myzostoma_glabrum,
+		11 Myzostoma_alatum,
+		12 Contramyzostoma_sphaera,
+		13 Myzostoma_capitocutis,
+		14 Myzostoma_nigromaculatum,
+		15 Myzostoma_coriaceum,
+		16 Myzostoma_ambiguum,
+		17 Myzostoma_mortenseni,
+		18 Myzostoma_polycyclus,
+		19 Myzostoma_toliarense,
+		20 Notopharyngoides_aruensis,
+		21 Myzostoma_cuniculus,
+		22 Myzostoma_pseudocuniculus,
+		23 Myzostoma_laingense,
+		24 Myzostoma_furcatum,
+		25 Myzostoma_fissum,
+		26 Hypomyzostoma_n._sp._1,
+		27 Mesomyzostoma_n._sp._2,
+		28 Mesomyzostoma_n._sp._3b,
+		29 Mesomyzostoma_n._sp._3a,
+		30 Mesomyzostoma_katoi,
+		31 Mesomyzostoma_n._sp._1b,
+		32 Mesomyzostoma_n._sp._1a,
+		33 Mesomyzostoma_reichenspergi,
+		34 Mesomyzostoma_n._sp._4b,
+		35 Mesomyzostoma_n._sp._4a,
+		36 Hypomyzostoma_sp._aff._crosslandi_b,
+		37 Hypomyzostoma_fasciatum,
+		38 Hypomyzostoma_sp._aff._crosslandi_ba;
+	TREE 'Bayesian tree (18S+16S+COI)' = ((((((((((((((31:0.3039,32:0.2779):5.9636,30:21.6378):1.6739000000000002,((34:0.06470000000000001,35:0.10200000000000001):3.2229,33:6.280900000000001):1.0339):0.8681,(28:0.12639999999999998,29:0.11720000000000001):2.1696999999999997):5.876200000000001,27:5.9858):3.3350999999999997,((37:4.400500000000001,38:3.1655999999999995):3.3577999999999997,36:3.7678999999999996):2.3925):1.1351,26:7.1482):1.0875,(24:4.5245,25:4.5407):1.9695):1.0522999999999998,23:10.607):3.5983,((22:3.4992,21:5.21):2.3958000000000004,20:5.9877):2.1132):0.8295999999999999,(((18:0.11939999999999999,19:0.1899):6.2901,17:0.5812999999999999):0.6874,16:0.5277999999999999):2.8432000000000004):1.0482,(((14:1.2255,15:1.5718999999999999):2.4515,13:3.9418):4.2803,12:5.4401):1.1732):4.7473,((10:1.683,11:0.5599):7.1278,9:4.571):4.4366):14.6297700002,((((6:0.0588,(5:0.1429,4:0.07830000000000001):0.10239999999999999):2.2082999999999995,((1:5.168699999999999,2:3.5148):12.048399999999999,3:5.0159):1.9893999999999998):17.8558,7:6.631399999999999):12.322199999999999,8:24.866600000000002):10.81293);
+
+END;
+
+
+BEGIN ASSUMPTIONS;
+	TYPESET * UNTITLED   =  unord:  1 -  2;
+
+END;
+
+Begin MESQUITE;
+		MESQUITESCRIPTVERSION 2;
+		TITLE AUTO;
+		tell ProjectCoordinator;
+		getEmployee #mesquite.minimal.ManageTaxa.ManageTaxa;
+		tell It;
+			setID 0 21721721224609191;
+		endTell;
+		getEmployee #mesquite.charMatrices.ManageCharacters.ManageCharacters;
+		tell It;
+			setID 0 12985681851996670;
+			tell It;
+				setDefaultOrder  20 18;
+				attachments ;
+			endTell;
+			checksum 0 3786470345;
+		endTell;
+		getEmployee  #mesquite.trees.BasicTreeWindowCoord.BasicTreeWindowCoord;
+		tell It;
+			makeTreeWindow #21721721224609191  #mesquite.trees.BasicTreeWindowMaker.BasicTreeWindowMaker;
+			tell It;
+				setTreeSource  #mesquite.trees.StoredTrees.StoredTrees;
+				tell It;
+					setTreeBlock 1;
+					toggleUseWeights off;
+				endTell;
+				setAssignedID 503.1086699706969.266561715281103184;
+				getTreeWindow;
+				tell It;
+					setSize 1027 593;
+					setLocation 25 53;
+					setFont SanSerif;
+					setFontSize 10;
+					onInfoBar;
+					setExplanationSize 30;
+					setAnnotationSize 20;
+					setFontIncAnnot 0;
+					setFontIncExp 0;
+					getToolPalette;
+					tell It;
+						setTool mesquite.trees.BasicTreeWindowMaker.BasicTreeWindow.arrow;
+					endTell;
+					setActive;
+					getTreeDrawCoordinator #mesquite.trees.BasicTreeDrawCoordinator.BasicTreeDrawCoordinator;
+				tell It;
+					suppress;
+					setTreeDrawer  #mesquite.trees.SquareTree.SquareTree;
+					tell It;
+						setEdgeWidth 6;
+						orientRight;
+						toggleCorners off;
+						getEmployee #mesquite.trees.NodeLocsStandard.NodeLocsStandard;
+						tell It;
+							stretchToggle off;
+							branchLengthsToggle on;
+							toggleScale off;
+							toggleCenter on;
+							toggleEven on;
+							namesAngle ?;
+						endTell;
+					endTell;
+					setBackground White;
+					setBranchColor Black;
+					showNodeNumbers on;
+					labelBranchLengths off;
+					desuppress;
+					getEmployee #mesquite.trees.BasicDrawTaxonNames.BasicDrawTaxonNames;
+					tell It;
+						setColor Black;
+						toggleColorPartition on;
+						toggleShadePartition off;
+						toggleNodeLabels on;
+						toggleShowNames on;
+					endTell;
+				endTell;
+					setTreeNumber 1;
+					useSuggestedSize off;
+					toggleSizeToFit on;
+					toggleTextOnTree on;
+					newAssistant  #mesquite.ancstates.TraceCharacterHistory.TraceCharacterHistory;
+				tell It;
+					suspend ;
+					setDisplayMode  #mesquite.ancstates.ShadeStatesOnTree.ShadeStatesOnTree;
+					tell It;
+						toggleLabels off;
+					endTell;
+					setHistorySource  #mesquite.ancstates.RecAncestralStates.RecAncestralStates;
+					tell It;
+						getCharacterSource  #mesquite.charMatrices.CharSrcCoordObed.CharSrcCoordObed;
+						tell It;
+							setCharacterSource #mesquite.charMatrices.StoredCharacters.StoredCharacters;
+							tell It;
+								setDataSet #12985681851996670;
+							endTell;
+						endTell;
+						setMethod  #mesquite.stochchar.MargProbAncStates.MargProbAncStates;
+						tell It;
+							setModelSource  #mesquite.stochchar.CurrentProbModels.CurrentProbModels;
+							getEmployee #mesquite.stochchar.zMargLikeCateg.zMargLikeCateg;
+							tell It;
+								setReportMode Proportional_Likelihoods;
+								setRootMode Sum_Likelihoods;
+								setDecision 2.0;
+								setUnderflowCheckFreq 2;
+							endTell;
+						endTell;
+					endTell;
+					setCharacter 2;
+					toggleShowLegend on;
+					toggleGray off;
+					toggleWeights off;
+					setInitialOffsetX 21;
+					setInitialOffsetY -553;
+					setLegendWidth 211;
+					setLegendHeight 159;
+					resume ;
+				endTell;
+					newAssistant  #mesquite.trees.TreeNotesMaker.TreeNotesMaker;
+				tell It;
+					getNote;
+					tell It;
+						setBounds 49 361 100 137;
+						setOffsetX 49;
+						setOffsetY 361;
+						setNote 'node 2:  ^n0:0.383563154, ^n1:0.06300002, ^n2:0.067006649, ^n3:0.059889455, ^n4:0.19772878, ^n5:0.111302454, ^n6:0.05874699, ^n7:0.05876251';
+						setOffsetX 49;
+						setOffsetY 361;
+					endTell;
+				endTell;
+					newAssistant  #mesquite.trees.TreeNotesMaker.TreeNotesMaker;
+				tell It;
+					getNote;
+					tell It;
+						setBounds 10 539 873 35;
+						setOffsetX 10;
+						setOffsetY 539;
+						setNote '                ML reconstruction on the Bayesian phylogram of Figure 5, obtained from analyses of the combined (18S + COI + 16S) data set (PP threshold of 90%). ';
+						setOffsetX 10;
+						setOffsetY 539;
+					endTell;
+				endTell;
+				endTell;
+				showWindow;
+				getEmployee #mesquite.ornamental.BranchNotes.BranchNotes;
+				tell It;
+					setAlwaysOn off;
+				endTell;
+				getEmployee #mesquite.trees.ColorBranches.ColorBranches;
+				tell It;
+					setColor Red;
+					removeColor off;
+				endTell;
+			endTell;
+		endTell;
+		endTell;
+end;
+

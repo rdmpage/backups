@@ -1,0 +1,213 @@
+<beast>
+	
+	<taxa id="taxa">
+		<taxon id="Neandertal_AF254446"/>
+		<taxon id="Neandertal_AY149291"/>
+		<taxon id="Neandertal_AF011222"/>
+		<taxon id="Neandertal_AF282971"/>
+	</taxa>
+	
+	<alignment dataType="nucleotide" id="alignment">
+		<sequence>
+			<taxon idref="Neandertal_AF254446"/>
+			NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNCCAAGTATTGACTCACCCATCAACAACCGCCATGTATTTCGTACATTACTGCCAGCCACCATGAATATTGTACAGTACCATAATTACTTGACTACCTGTAATACATAAAAACCTAATCCACATCAACCCCCCCCCCCCATGCTTACAAGCAAGCACAGCAATCAACCTTCAACTGTCATACATCAACTACAACTCCAAAGACACCCTTACACCCACTAGGATATCAACAAACCTACCCACCCTTGACAGTACATAGCACATAAAGTCATTTACCGTACATAGCACATTATAGTCAAATCCCTTCTCGCCCCCATGGATGACCCC
+		</sequence>
+		<sequence>
+			<taxon idref="Neandertal_AY149291"/>
+			TTCTTTCATGGGGGAGCAGATTTGGGTACCACCCAAGTATTGACTCACCCATCAGCAACCGCTATGTATTTCGTACATTACTGCCAGCCACCATGAATATTGTACAGTACCATAATTACTTGACTACCTGCAGTACATAAAAACCTAATCCACATCAACCCCCCCCCCCCATGCTTACAAGCAAGCACAGCAATCAACCTTCAACTGTCATACATCAACTACAACTCCAAAGACACCCTTACACCCACTAGGATATCAACAAACCTACCCACCCTTGACAGTACATAGCACATAAAGTCATTTACCGTACATAGCACATTACAGTCAAATCCCTTCTCGCCCCCATGGATGACCCC
+		</sequence>
+		<sequence>
+			<taxon idref="Neandertal_AF011222"/>
+			TTCTTTCATGGGGGAGCAGATTTGGGTACCACCCAAGTATTGACTCACCCATCAGCAACCGCTATGTATCTCGTACATTACTGTTAGTTACCATGAATATTGTACAGTACCATAATTACTTGACTACCTGCAGTACATAAAAACCTAATCCACATCAAACCCCCCCCCCCATGCTTACAAGCAAGCACAGCAATCAACCTTCAACTGTCATACATCAACTACAACTCCAAAGACGCCCTTACACCCACTAGGATATCAACAAACCTACCCACCCTTGACAGTACATAGCACATAAAGTCATTTACCGTACATAGCACATTACAGTCAAATCCCTTCTCGCCCCCATGGATGACCCC
+		</sequence>
+		<sequence>
+			<taxon idref="Neandertal_AF282971"/>
+			TTCTTTCATGGGGGAGCAGATTTGGGTACCACCCAAGTATTGACTCACCCATCAGCAACCGCTATGTATTTCGTACATTACTGCCAGCCACCATGAATATTGTACAGTACCATAATTACTTGACTACCTGCAGTACATAAAAACCTAATCCACATCAACCCCCCCCCCCCATGCTTACAAGCAAGCACAGCAATCAACCTTCAACTGTCATACATCAACTACAACTCCAAAGACGCCCTTACACCCACTAGGATATCAACAAACCTACCCACCCTTGACAGTACATAGCACATAAAGTCATTTACCGTACATAGCACATTACAGTCAAATCCCTTCTCGCCCCCATGGATGACCCC
+		</sequence>
+	</alignment>
+	
+	<patterns id="patterns" from="1">
+		<alignment idref="alignment"/>
+	</patterns>
+	
+	<constantSize id="constant" units="substitutions">
+		<populationSize>
+			<parameter id="constant.popSize" value="100.0" lower="0.0"/>
+		</populationSize>
+	</constantSize>
+	
+	<!-- Generate a random starting tree under the coalescent process            -->
+	<coalescentTree id="startingTree" rootHeight="295000">
+		<taxa idref="taxa"/>
+		<constantSize idref="constant"/>
+	</coalescentTree>
+	
+	<treeModel id="treeModel">
+		<coalescentTree idref="startingTree"/>
+		<rootHeight>
+			<parameter id="treeModel.rootHeight"/>
+		</rootHeight>
+		<nodeHeights internalNodes="true">
+			<parameter id="treeModel.internalNodeHeights"/>
+		</nodeHeights>
+		<nodeHeights internalNodes="true" rootNode="true">
+			<parameter id="treeModel.allInternalNodeHeights"/>
+		</nodeHeights>
+	</treeModel>
+	
+	<coalescentLikelihood id="coalescent">
+		<model>
+			<constantSize idref="constant"/>
+		</model>
+		<populationTree>
+			<treeModel idref="treeModel"/>
+		</populationTree>
+	</coalescentLikelihood>
+	
+	<!-- The HKY substitution model (Hasegawa, Kishino & Yano, 1985)             -->
+	<hkyModel id="hky">
+		<frequencies>
+			<frequencyModel dataType="nucleotide">
+				<alignment idref="alignment"/>
+				<frequencies>
+					<parameter id="hky.frequencies" dimension="4"/>
+				</frequencies>
+			</frequencyModel>
+		</frequencies>
+		<kappa>
+			<parameter id="hky.kappa" value="25" lower="0" upper="500"/>
+		</kappa>
+	</hkyModel>
+	
+	<!-- site model                                                              -->
+	<siteModel id="siteModel">
+		<substitutionModel>
+			<hkyModel idref="hky"/>
+		</substitutionModel>
+		<mutationRate>
+			<parameter id="siteModel.mu" value="1.0" lower="0.0"/>
+		</mutationRate>
+	</siteModel>
+
+	<distributionLikelihood id="calibration">
+		<distribution>
+			<normalDistributionModel>
+ 				<mean> 295000 </mean>
+				<stdev> 100 </stdev>
+			</normalDistributionModel>
+		</distribution>
+		<data>
+			<parameter idref="treeModel.rootHeight"/>
+		</data>
+	</distributionLikelihood>
+
+	<discretizedBranchRates id="discreteBranchRates">
+        <treeModel idref="treeModel"/>
+        <distribution>
+            <logNormalDistributionModel id="lnd" meanInRealSpace="true">
+                <mean> <parameter id="lndMean" value="1e-8" lower="0" upper="1.0"/> </mean>
+                <stdev> <parameter id="lndStDev" value="1e-8" lower="0.0" upper="5.0"/> </stdev>
+            </logNormalDistributionModel>
+        </distribution>
+        <rateCategories> <parameter id="rateCategories" dimension="6"/> </rateCategories>
+    </discretizedBranchRates>
+	
+	<treeLikelihood id="treeLikelihood">
+		<discretizedBranchRates idref="discreteBranchRates"/>
+		<patterns idref="patterns"/>
+		<treeModel idref="treeModel"/>
+		<siteModel idref="siteModel"/>
+	</treeLikelihood>
+	
+	<rateStatistic name="meanRate" id="meanRate" mode="mean" internal="true" external="true">
+		<treeModel idref="treeModel"/>
+		<branchRateModel idref="discreteBranchRates"/>
+	</rateStatistic>
+
+	<rateStatistic name="rateCoeff" id="rateCoeff" mode="coefficientOfVariation" internal="true" external="true">
+		<treeModel idref="treeModel"/>
+		<branchRateModel idref="discreteBranchRates"/>
+	</rateStatistic>
+
+	<operators id="operators">
+		<scaleOperator scaleFactor="0.5" weight="1">
+			<parameter idref="hky.kappa"/>
+		</scaleOperator>
+		<scaleOperator scaleFactor="0.5" weight="1">
+			<parameter idref="constant.popSize"/>
+		</scaleOperator>
+		<scaleOperator scaleFactor="0.9" adapt="false" weight="1">
+			<parameter idref="lndMean"/>
+		</scaleOperator>
+		<swapOperator autoOptimize="false" weight="5" size="1">
+			<parameter idref="rateCategories"/>
+		</swapOperator>
+		<upDownOperator weight="4" scaleFactor="0.9">
+			<up>
+				<parameter idref="lndMean"/>
+			</up>
+			<down>
+				<parameter idref="treeModel.allInternalNodeHeights"/>
+			</down>
+		</upDownOperator>
+		<scaleOperator scaleFactor="0.5" weight="1">
+			<parameter idref="lndStDev"/>
+		</scaleOperator>
+		<scaleOperator scaleFactor="0.5" weight="1">
+			<parameter idref="treeModel.rootHeight"/>
+		</scaleOperator>
+		<uniformOperator weight="10">
+			<parameter idref="treeModel.internalNodeHeights"/>
+		</uniformOperator>
+		<subtreeSlide weight="5" gaussian="true" size="1.0">
+			<treeModel idref="treeModel"/>
+		</subtreeSlide>
+		<narrowExchange weight="1">
+			<treeModel idref="treeModel"/>
+		</narrowExchange>
+		<wideExchange weight="1">
+			<treeModel idref="treeModel"/>
+		</wideExchange>
+		<wilsonBalding weight="1">
+			<treeModel idref="treeModel"/>
+			<constantSize idref="constant"/>
+		</wilsonBalding>
+	</operators>
+	
+	<mcmc id="mcmc" chainLength="10000000" autoOptimize="true">
+		<compoundLikelihood id="likelihood">
+			<coalescentLikelihood idref="coalescent"/>
+			<treeLikelihood idref="treeLikelihood"/>
+			<distributionLikelihood idref="calibration"/>
+		</compoundLikelihood>
+		<operators idref="operators"/>
+		<log id="screenLog" logEvery="1000">
+			<column label="Likelihood" dp="4" width="12">
+				<compoundLikelihood idref="likelihood"/>
+			</column>
+			<column label="Root Height" sf="6" width="12">
+				<parameter idref="treeModel.rootHeight"/>
+			</column>
+			<column label="Mean Rate" sf="6" width="12">
+				<parameter idref="meanRate"/>
+			</column>
+		</log>
+		<log id="fileLog" logEvery="1000" fileName="neandertal_nodates.log">
+			<compoundLikelihood idref="likelihood"/>
+			<parameter idref="constant.popSize"/>
+			<parameter idref="hky.kappa"/>
+			<rateStatistic idref="meanRate"/>
+			<rateStatistic idref="rateCoeff"/>
+			<parameter idref="treeModel.rootHeight"/>
+			<treeLikelihood idref="treeLikelihood"/>
+			<coalescentLikelihood idref="coalescent"/>
+		</log>
+	</mcmc>
+	
+	<report>
+		<property name="timer">
+			<object idref="mcmc"/>
+		</property>
+	</report>
+	
+</beast>

@@ -1,0 +1,298 @@
+#NEXUS
+[written Tue Mar 15 16:35:11 EST 2005 by Mesquite  version 1.04 (build g21)]
+
+BEGIN TAXA;
+	TITLE Untitled_Taxa_Block;
+	DIMENSIONS NTAX=56;
+	TAXLABELS
+		Agalma_clausi Agalma_okeni Agalma_elegans_Atlantic Agalma_elegans_Pacific Athorybia_rosacea_Atlantic Athorybia_rosacea_Pacific Halistemma_rubrum__Med Halistemma_rubrum__Atlantic Halistemma_rubrum_Pacific Nanomia_bijuga_Atlantic Nanomia_bijuga_Pacific Apolemia_sp_1 Apolemia_sp_4 Apolemia_sp_2 Apolemia_sp_3 Stephanomia_amphytridis Erenna_sp Stephalia_dilata Bargmannia_amoena Bargmannia_elongata Praya_dubia Physophora_hydrostatica Nectadamas_diomedeae Nectopyramis_natans Staurocladia_wellingtoni Cordagalma_cordiforme Hippopodius_hippopus_Atlantic Hippopodius_hippopus_Pacific Vogtia_pentacantha Vogtia_glabra Sphaeronectes_gracilis Gymnopraia_lapislazula Chuniphyes_multidentata Clausophyes_ovata Rosacea_flaccida Forskalia_asymmetrica Forskalia_edwardsi_Atlantic Forskalia_edwardsi_Pacific_1 Forskalia_edwardsi_Pacific_2 Forskalia_tholoides Forskalia_formosa Craseoa_lathetica Clausophyid_sp_1 Porpita_porpita Velella_velella Physalia_physalis Rhizophysa_filiformis Rhizophysa_eysenhardti Diphyes_dispar Sulculeolaria_quadrivalvis_Atlantic Sulculeolaria_quadrivalvis_Pacific Lensia_conoidea Muggiaea_atlantica Abylopsis_tetragona Chelophyes_appendiculata Hydra 
+	;
+
+END;
+
+
+BEGIN CHARACTERS;
+	TITLE  zooids;
+	DIMENSIONS NCHAR=7;
+	FORMAT DATATYPE = STANDARD GAP = - MISSING = ? SYMBOLS = "  0 1";
+	CHARSTATELABELS 
+		1 Bracts, 2 Gastrozooids, 3 Palpons, 4 sexes, 5 nectosome, 6 DB_Palial, 7 nectophores_ ; 
+	MATRIX
+	Agalma_clausi                        111MD11
+
+	Agalma_okeni                         111MD11
+
+	Agalma_elegans_Atlantic              111MD11
+
+	Agalma_elegans_Pacific               111MD11
+
+	Athorybia_rosacea_Atlantic           111MX?0
+
+	Athorybia_rosacea_Pacific            111MX?0
+
+	Halistemma_rubrum__Med               211MD11
+
+	Halistemma_rubrum__Atlantic          211MD11
+
+	Halistemma_rubrum_Pacific            211MD11
+
+	Nanomia_bijuga_Atlantic              211MD11
+
+	Nanomia_bijuga_Pacific               211MD11
+
+	Apolemia_sp_1                        111DV01
+
+	Apolemia_sp_4                        111DV01
+
+	Apolemia_sp_2                        111DV01
+
+	Apolemia_sp_3                        111DV01
+
+	Stephanomia_amphytridis              211DV01
+
+	Erenna_sp                            211DV01
+
+	Stephalia_dilata                     121DV11
+
+	Bargmannia_amoena                    110DD01
+
+	Bargmannia_elongata                  120DD01
+
+	Praya_dubia                          110M?13
+
+	Physophora_hydrostatica              011MV11
+
+	Nectadamas_diomedeae                 110M?12
+
+	Nectopyramis_natans                  110M?12
+
+	Staurocladia_wellingtoni             000???0
+
+	Cordagalma_cordiforme                ?11MV11
+
+	Hippopodius_hippopus_Atlantic        010M??1
+
+	Hippopodius_hippopus_Pacific         010M??1
+
+	Vogtia_pentacantha                   010M??1
+
+	Vogtia_glabra                        010M??1
+
+	Sphaeronectes_gracilis               110M??2
+
+	Gymnopraia_lapislazula               010???3
+
+	Chuniphyes_multidentata              110???4
+
+	Clausophyes_ovata                    110???4
+
+	Rosacea_flaccida                     110M??3
+
+	Forskalia_asymmetrica                411MV11
+
+	Forskalia_edwardsi_Atlantic          411MV11
+
+	Forskalia_edwardsi_Pacific_1         411MV11
+
+	Forskalia_edwardsi_Pacific_2         411MV11
+
+	Forskalia_tholoides                  411MV11
+
+	Forskalia_formosa                    411MV11
+
+	Craseoa_lathetica                    110M??3
+
+	Clausophyid_sp_1                     ?10???4
+
+	Porpita_porpita                      000???0
+
+	Velella_velella                      000???0
+
+	Physalia_physalis                    031DX?0
+
+	Rhizophysa_filiformis                011DX?0
+
+	Rhizophysa_eysenhardti               011DX?0
+
+	Diphyes_dispar                       110M??4
+
+	Sulculeolaria_quadrivalvis_Atlantic  110M??4
+
+	Sulculeolaria_quadrivalvis_Pacific   110M??4
+
+	Lensia_conoidea                      110M??4
+
+	Muggiaea_atlantica                   110M??2
+
+	Abylopsis_tetragona                  110M??4
+
+	Chelophyes_appendiculata             110M??4
+
+	Hydra                                000D??0
+
+
+;
+
+END;
+
+BEGIN CODONS;
+CODESET * UNTITLED = Universal : all;
+
+END;
+
+BEGIN TREES;
+	Title 'Trees from "tree1.burned.con"';
+	LINK Taxa = Untitled_Taxa_Block;
+	TRANSLATE
+		1 Agalma_clausi,
+		2 Agalma_okeni,
+		3 Agalma_elegans_Atlantic,
+		4 Agalma_elegans_Pacific,
+		5 Athorybia_rosacea_Atlantic,
+		6 Athorybia_rosacea_Pacific,
+		7 Halistemma_rubrum__Med,
+		8 Halistemma_rubrum__Atlantic,
+		9 Halistemma_rubrum_Pacific,
+		10 Nanomia_bijuga_Atlantic,
+		11 Nanomia_bijuga_Pacific,
+		12 Apolemia_sp_1,
+		13 Apolemia_sp_4,
+		14 Apolemia_sp_2,
+		15 Apolemia_sp_3,
+		16 Stephanomia_amphytridis,
+		17 Erenna_sp,
+		18 Stephalia_dilata,
+		19 Bargmannia_amoena,
+		20 Bargmannia_elongata,
+		21 Praya_dubia,
+		22 Physophora_hydrostatica,
+		23 Nectadamas_diomedeae,
+		24 Nectopyramis_natans,
+		25 Staurocladia_wellingtoni,
+		26 Cordagalma_cordiforme,
+		27 Hippopodius_hippopus_Atlantic,
+		28 Hippopodius_hippopus_Pacific,
+		29 Vogtia_pentacantha,
+		30 Vogtia_glabra,
+		31 Sphaeronectes_gracilis,
+		32 Gymnopraia_lapislazula,
+		33 Chuniphyes_multidentata,
+		34 Clausophyes_ovata,
+		35 Rosacea_flaccida,
+		36 Forskalia_asymmetrica,
+		37 Forskalia_edwardsi_Atlantic,
+		38 Forskalia_edwardsi_Pacific_1,
+		39 Forskalia_edwardsi_Pacific_2,
+		40 Forskalia_tholoides,
+		41 Forskalia_formosa,
+		42 Craseoa_lathetica,
+		43 Clausophyid_sp_1,
+		44 Porpita_porpita,
+		45 Velella_velella,
+		46 Physalia_physalis,
+		47 Rhizophysa_filiformis,
+		48 Rhizophysa_eysenhardti,
+		49 Diphyes_dispar,
+		50 Sulculeolaria_quadrivalvis_Atlantic,
+		51 Sulculeolaria_quadrivalvis_Pacific,
+		52 Lensia_conoidea,
+		53 Muggiaea_atlantica,
+		54 Abylopsis_tetragona,
+		55 Chelophyes_appendiculata,
+		56 Hydra;
+	TREE con_50_majrule = (25:0.05321,(44:0.03902,45:0.06283)1.00:0.133875,(56:0.139304,((48:0.02787,(46:0.088545,47:0.043622)0.56:0.031503):0.063127,(((12:0.007433,13:0.008231):0.015678,(14:0.003868,15:0.003832)0.54:0.00464):0.022374,(16:0.019845,17:0.02714,18:0.025847,26:0.40015,(19:0.012459,20:0.018923):0.035699,(((10:0.04696,11:0.042496):0.027829,((9:0.00655,(7:0.003966,8:0.007748)0.90:0.009065):0.031255,(1:0.012011,((3:0.00382,4:0.003782):0.014887,(2:0.02952,(5:0.003837,6:0.00745):0.019098):0.015201)0.84:0.013418):0.021642)0.76:0.026747):0.044018,(22:0.076494,(40:0.011441,((37:0.004446,(38:0.003842,39:0.003701)0.86:0.007344)0.98:0.016925,(36:0.09712,41:0.024032)0.62:0.035622)0.58:0.010866):0.102768)0.81:0.022747)0.92:0.039259,((21:0.080439,(23:0.058451,24:0.064696):0.029287)0.96:0.025046,(42:0.152541,(43:0.104553,((31:0.330691,((55:0.363678,(49:0.132652,54:0.198265):0.060704):0.048211,(53:0.099681,(52:0.063549,(50:0.04147,51:0.00831):0.092203):0.082165)0.97:0.042838):0.158428):0.113669,(33:0.099506,34:0.085178)0.55:0.026367):0.132728):0.055665,((29:0.146712,(30:0.181361,(27:0.014264,28:0.02001):0.260549)0.99:0.108398):0.567176,(32:0.209997,35:0.213747)0.61:0.066376)0.67:0.068778):0.078778)0.82:0.006135)0.93:0.010809):0.033358):0.047795)0.95:0.034355);
+
+END;
+
+
+BEGIN SETS;
+TAXSET outgroup  =  25 44 -  45 56;
+
+END;
+
+BEGIN ASSUMPTIONS;
+	TYPESET * UNTITLED   =  unord:  4 -  7, ord:  1 -  3;
+
+END;
+
+BEGIN MESQUITECHARMODELS;
+	ProbModelSet * UNTITLED   =  'Mk1 (est.)':  1;
+END;
+
+BEGIN MacClade;
+	Version 4.0  84;
+	LastModified -1133466599;
+	FileSettings editor '0' '0' '1' '1';
+	Singles 100;
+	Editor 0001100111111110010001001 '1' '12'                   Geneva '9' '100' '1'                   all;
+	EditorPosition '44' '6' '691' '963';
+	TreeWindowPosition '46' '6' '723' '974';
+	ListWindow Characters open Geneva '9' '50' '10' '433' '406'                   000;
+	ListWindow Taxa closed Geneva '9' '50' '10' '529' '353'                   100000;
+	ListWindow Trees closed Geneva '9' '50' '10' '276' '490';
+	ListWindow TypeSets closed Geneva '9' '50' '10' '276' '490';
+	ListWindow WtSets closed Geneva '9' '50' '10' '276' '490';
+	ListWindow ExSets closed Geneva '9' '50' '10' '276' '490';
+	ListWindow CharSets closed Geneva '9' '52' '418' '129' '181';
+	ListWindow TaxSets closed Geneva '9' '50' '10' '129' '177';
+	ListWindow CharPartitions closed Geneva '9' '50' '10' '276' '490';
+	ListWindow CharPartNames closed Geneva '9' '241' '400' '129' '216';
+	ListWindow WtSets closed Geneva '9' '50' '10' '276' '490';
+	ChartWindowPosition '52' '30' '686' '964';
+	StateNamesSymbols closed Geneva '9' '10' '50' '30' '148' '220';
+	WindowOrder  Data List Characters;
+	OtherSymbols & /                   00 ? -;
+	Correlation '0' '0' '1000' '0' '0'                   10011010;
+	Salmo 00000001;
+	EditorFile '4';
+	ExportHTML _ MOSS '100'                   110000;
+	PrettyPrint 10;
+	EditorToolsPosition '577' '46' '115' '165';
+	TreeWindowProgram 10;
+	TreeWindow 0000;
+	Continuous '0' '3'                   1;
+	Calculations 0000001;
+	SummaryMode '0' '0'                   0;
+	Charts  Geneva '9' (                  normal )                   0010;
+	NexusOptions '0' '0' '50'                   001011001;
+	TipLabel '1';
+	TreeFont  Geneva '9' (                  normal );
+	TreeShape  1.0 1.0 0100;
+	TraceLabels 0101;
+	ChartColors '0' '0' '65535' '9' '0'                   1;
+	ChartBiggestSpot 1;
+	ChartPercent 10;
+	ChartBarWidth '10'                   1;
+	ChartVerticalAxis 10101;
+	ChartMinMax '0';
+	TraceAllChangesDisplay '1'                   1;
+	BarsOnBranchesDisplay '0' '0' '60000' '10000' '10000' '10000' '10000' '60000' '65000' '65000' '65000' '6' '1'                   0000101;
+	ContinuousBranchLabels 0;
+	AllStatesBranchLabels 1;
+	IndexNotation '2'                   1;
+	PrintTree  10.00 '2' '2' '2' '2' '2' '2' '2' '2' '2' '2' '2'                   Geneva '9' (                  normal )                   Geneva '10' (                  normal )                   Geneva '9' (                  normal )                   Geneva '9' (                  normal )                   Geneva '9' (                  bold )                   Geneva '9' (                  normal )                   Geneva '9' (                  normal ) '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '1' '1' '1' '1' '-32768' '0' '-39' '4' '-40' '0' '1' '2' '1' '8' '0' '0' '0' '2'                   1000111000000000000100000111000;
+	MatchChar 00 .;
+	EntryInterpretation 01;
+	ColorOptions 00;
+	TreeTools '0' '5' '4' '0' '10' '4' '0'                   00100111111101110;
+	EditorTools '0' '0' '0' '1000' '0' '0' '6' '3' '0'                   100000101110001;
+	PairAlign '2' '2' '3' '2' '1' '1' '2' '1' '3'                   1010;
+	BothTools '1';
+END;
+
+Begin MESQUITE;
+		MESQUITESCRIPTVERSION 2;
+		TITLE AUTO;
+		tell ProjectCoordinator;
+		getEmployee  #mesquite.minimal.ManageTaxa.ManageTaxa;
+		tell It;
+			setID 0 6802702169386360956;
+		endTell;
+		getEmployee  #mesquite.charMatrices.ManageCharacters.ManageCharacters;
+		tell It;
+			setID 0 5466315410374756921;
+			checksum 0 1138605745;
+		endTell;
+		endTell;
+end;
+

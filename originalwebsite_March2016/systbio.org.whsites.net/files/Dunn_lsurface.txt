@@ -1,0 +1,163 @@
+#!/usr/bin/perl
+# Written by Casey Dunn, casey.dunn@yale.edu
+# See info at end of file
+
+use strict;
+use Getopt::Std;
+
+
+# parse the options
+my %options;
+getopts('h:l:i:b:t:c:o:', \%options);
+
+
+# set defauls
+my $high; #The high value of the rate parameter interval
+my $low = 0; #The low value of the rate parameter interval
+my $nint = 100; # The number of intervals to evaluate
+
+my $BayesmsName = "BayesMS.exe"; #The name of the BayesMS program, as it appears in the path
+my $treename = "con.tre"; #The name of the tree file
+my $characterdata = "data"; #the name of the file with the character data
+my $multistatelog = "multistatelog"; #The name of the log file for the multistate analyses
+
+
+# show all info and quit if high was not specified
+if ( ! $options{h} ){
+  info();
+  exit;
+}
+
+
+# load in specified options
+$high = $options{h};
+if ($options{l}) { $low = $options{l};}
+if ($options{i}) { $nint = $options{i};}
+
+if ($options{b}) { $BayesmsName = $options{b};}
+if ($options{t}) { $treename = $options{t};}
+if ($options{c}) { $characterdata = $options{c};}
+if ($options{o}) { $multistatelog = $options{o};}
+
+
+#set a couple more things
+my $tempfile = "temp.lsurface";
+
+
+my $mlalpha = shift @ARGV;
+my $maxalpha = shift @ARGV;
+
+
+# Calculate the increment
+if ( $low >= $high ) {die("Invalid range: $low to $high\n")};
+my $increment = ($high - $low) / $nint;
+
+
+# Get ready for the loop
+my $value = $low;
+print "rate\tlnlh\n";
+	
+for ( my $i = 0; $i <= $nint; $i ++ ) {
+
+	my $lh = getlone ($value);
+	print "$value\t$lh\n";
+	$value += $increment;
+}
+
+
+
+sub getlone {
+	
+	# This subroutine does the dirty work of running BayesMS and getting the lnlh score
+	
+	# Get the rate from the arguments
+	my $rate = shift @_;
+
+
+	# Write a temp file that has all the stdin that BayesMS expects, including the rate
+	open(TEMP, ">$tempfile") || die("Can't open $tempfile");
+	print TEMP "1\n1\nrestrictall $rate\nrun\n";
+
+	# Run BayesMS and feed the temp file to it
+	`$BayesmsName $treename $characterdata < $tempfile >> $multistatelog`;
+	
+	# Open the log that BayesMS generates
+	open(LOG, "$characterdata.log.txt") || die("Can't open $characterdata.log.txt");
+	
+	# Pars the score out of the log file and return it
+	my $flag = 0;
+	while (my $line = <LOG> ) {
+		if ($flag > 0 ) {
+			my @results = split (/\t/, $line);
+			my $lh = $results[1];
+			return $lh;
+		}
+		if ($line =~ /Tree No\tLh/ ) { $flag = 1; }
+	}
+}
+
+
+
+sub info {
+
+print<<EndOfIntro;
+
+lsurface 0.2
+Written by Casey Dunn
+Yale University
+casey dot dunn at yale dot edu
+April, 2005
+
+---------------------------------------------
+Copyright (C) 2005 Casey Dunn
+
+This program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 2 of the License, or (at your option) any later version.
+---------------------------------------------
+
+A perl wrapper for BayesMS, used to automate the estimation of
+single-rate likelihood surfaces. This program has only been 
+tested with BayesMultiState v1.0.2. It runs in Darwin (ie, OS X),
+and should also run in other flavors of Unix.
+
+For more information about BayesMS, visit 
+http://sapc34.rdg.ac.uk/meade/Mark/ .
+
+
+****Use at your own risk****
+This program is supplied as-is, without warranty.
+
+Usage:
+
+      Description                       Default
+ -h   High end of rate range            
+[-l]  Low end of rate range             $low
+[-i]  Number of intervals               $nint
+[-b]  Name of BayesMS executable        $BayesmsName
+[-t]  The name of the tree file         $treename
+[-c]  Name of the character data file   $characterdata
+[-o]  Name for BayesMS output log       $multistatelog
+
+The tree file must be compatible with BayesMultiState. Though 
+lsurface calculates the likelihood surface using only the first 
+tree in the file, BayesMultiState will not open a file with 
+less than two trees. The second tree can just be a copy of the 
+first tree, or anything else you like.
+
+
+example:
+
+lsurface -h 30 -i 50 > output.log
+
+If everything goes well, this will calculate the log likelihood
+of the rate at 50 different intervals from 0 to 30 given the tree
+in $treename and the character data in $characterdata. The parsed
+results will be in the file named output.log, and you can see all 
+of the raw BayesMultiState logs in $multistatelog.
+
+EndOfIntro
+
+
+}

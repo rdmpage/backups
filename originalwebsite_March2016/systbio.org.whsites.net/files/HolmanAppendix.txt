@@ -1,0 +1,2497 @@
+APPENDIX
+
+       This file contains 62 phylogenetic trees.  General properties of the
+notation are described first.  Then a paragraph for each tree gives its source
+and any unique properties; unless otherwise noted, the numbers of species per
+terminal come from the same source as the tree itself.  Then the source
+references are listed, followed by the trees.
+
+NOTATION
+
+       For each tree, the first line is the title; the second line is a Fortran
+integer format, which can be ignored if the data are read in free format; and
+the last line consists of '-1' to signal the end of the tree.  Each intervening
+line refers to a terminal of the tree.  Unless otherwise noted in the
+description of the individual tree, these lines are listed in the same order as
+the terminals in the source.  Also unless otherwise noted, the terminal taxa
+are genera.
+
+       Of the two numbers in each line referring to a terminal, the first
+specifies the structure of the tree, as follows.  The path from the root of the
+tree to the given terminal is traversed and the number of segments between
+nodes is counted until a segment is reached that has not already been traversed
+on the way to a terminal listed previously.  This number, along with the
+position of the terminal in the list, uniquely determines the position of the
+terminal in the tree.  The second number is the number of species in the
+terminal taxon.
+
+       The tree can be reconstructed from the list of first numbers by the
+following algorithm.  First, find the largest number (if the same number occurs
+more than once, choose the first occurrence in the list).  Combine its terminal
+with the one just before it in the list, to form a node (if the terminal or
+terminals just after the chosen terminal in the list also have the same largest
+number, combine these terminals at the same time to form a node with more than
+two branches).  This node is treated as a new terminal, replacing the ones just
+combined; its number is the smallest of the numbers identifying the combined
+terminals.  Return to the first step; repeat until only one terminal remains.
+
+SOURCES AND DESCRIPTIONS OF TREES
+
+       Broscini.  Roig-Junent (2000), Figure 14.  The paraphyletic genus
+Promecodorus is lumped into a single terminal with the genera nested within it:
+Bountya, Nothocascellius, Acallistus, Anheterus, Cascellius, and Creobius.
+
+       Hydrophiloidea.  Tree: Archangelsky (1998), Figure 6a.  Terminals are
+families.  Species: Hansen (1999).  To illustrate the notation with a simple
+tree, there is a diagram of the tree to the right of the data.
+
+       Ochodaeidae.  Scholtz et al. (1988), Figure 2.
+
+       Sphindidae.  McHugh (1993), Figure 93.
+
+       Agapophytinae.  Winterton et al. (2001), Figure 5.
+
+       Bombyliidae.  Tree: Yeates (1994), Figure 510.  Terminals are
+subfamilies, except that Sericosoma is a separate terminal.  Species: Hull
+(1973).
+
+       Culicidae.  Tree: Harbach and Kitching (1998), Figure 15.  The tree is
+the strict consensus of the two trees in the figure.  Species: Knight and
+Stone (1977), Zavortinck (1979).
+
+       Pipunculidae.  Tree: Rafael and de Meyer (1992), Figure 1.  Species:
+de Meyer (1996).
+
+       Augochlorini.  Engel (2000), Figure 17.
+
+       Dolichoderinae.  Shattuck (1995), Figure 1.
+
+       Formicini.  Agosti (1994), Figure 1.
+
+       Labeninae.  Gauld and Wahl (2000), Figure 87.
+
+       Megalyridae.  Shaw (1990), Figure 2.  The tree is the strict consensus of
+the two trees in the figure.
+
+       Trigonalidae.  Carmean and Kimsey (1998), Figure 25 (left side).  The
+Asian and American species of the paraphyletic genus Lycogaster are two
+separate terminals.
+
+       Heliconiiti.  Penz (1999), Figure 3.
+
+       Hieroxestinae.  Robinson and Tuck (1997), Figure 1.
+
+       Opostegidae.  Davis (1989), Figure 62.
+
+       Hexapoda.  Tree: Wheeler et al. (2001), Figure 17.  Terminals are orders.
+Species: McGavin (2001).
+
+       Hoplophorionini.  McKamey and Dietz (1996), Figure 97.  The tree is the
+strict consensus of the tree in the figure and the equally parsimonious trees
+described in the text.  The paraphyletic genus Potnia is lumped into a single
+terminal with the nested genus Ochropepia, and the paraphyletic genus Ramosella
+is lumped into a single terminal with the nested genus Turrialba.
+
+       Isoptera.  Tree: Thompson et al. (2000), Figure 3.  Terminals are
+families.  Species: www.utoronto.ca/forest/termite/speclist.htm
+
+       Polyphaginae.  Grandcolas (1994), Figure 20.
+
+       Diptilomiopinae.  Hong and Zhang (1997), Figure 6.
+
+       Nicodamidae.  Harvey (1995), Figure 1.
+
+       Theriosomatidae.  Coddington (1986), Figure 1.
+
+       Syrphidae.  Katzourakis et al. (2001), Electronic Appendix B.  The
+paraphyletic genus Cheilosia is placed in a node with six branches: one leading
+to Cheilosia itself, one each to the nested genera Portevinia, Hiatomyia,
+Endoiasimyia, Psarus, and one to the nested subtree.
+
+       Angiosperms.  Davis et al. (2004), Supporting Figure 2.  The tree is the
+strict consensus of the trees in the figure.  Terminals are families; they are
+ordered from the bottom to the top of each page in the figure.  The
+paraphyletic family Icacinaceae is placed in a node with four branches: one
+leading to Icacinaceae, one to the nested Oncothecaceae, one to the nested
+Eucommiaceae and Garryaceae, and one to the nested Gentianales, Lamiales, and
+Solenales.  The paraphyletic family Gentianaceae is lumped into a single
+terminal with the nested Gelsemiaceae, Loganiaceae, and Apocynaceae.
+
+       Anthemidae.  Bremer and Humphries (1993), Figures 1-12.  The tree is the
+strict consensus of the trees in the figures and the equally parsimonious trees
+described in the text, except that Figure 10 is replaced by the more
+parsimonious tree described in the text.
+
+       Asteloids.  Rudall et al. (1998), Figure 19.
+
+       Barnadesioidae.  Bremer (1994a), Figure 5-2.
+
+       Calenduleae.  Nordenstam (1994), Figure 17-1.
+
+       Cardueae-Carlininae.  Bremer (1994b), Figure 8-6.
+
+       Chrozophoreae.  Tree: van Welzen (1999), Figure 1.  Species: Webster
+(1994).
+
+       Cunoniaceae.  Tree: Bradford and Barnes (2001), Figure 4.  Terminals are
+genera, except that Codieae, Caldeluvieae, and Geissoieae are terminals.
+Species: Mabberley (1997).
+
+       Cyclanthaceae.  Tree: Eriksson (1994), Figure 2a.  Species: Mabberley
+(1997).
+
+       Cypripedioideae.  Tree: Cox et al. (1997), Figure 1.  Species: Mabberley
+(1997).
+
+       Hyoscyameae.  Hoare and Knapp (1997), Figure 2.
+
+       Inuleae.  Anderberg (1994a), Figure 14-1.
+
+       Liabeae.  Anderberg (1994b), Figure 13-2.
+
+       Lythraceae.  Graham et al. (1993), Figure 4.
+
+       Nymphaeales.  Les et al. (1999), Figure 2.
+
+       Pitcairnioideae.  Tree: Varaderajan and Gilmartin (1988), Figure 1.
+Species: Smith and Till (1998).
+
+       Plucheeae.  Anderberg (1994c), Figure 15-1.
+
+       Podylarieae.  Schutte and van Wyk (1998), Figure 9.
+
+       Restionaceae.  Tree: Linder et al. (2000), Figure 1.  Species:  Cooke
+(1998), Linder et al. (1998).
+
+       Ruscaceae.  Rudall et al. (2000), Figure 2.
+
+       Ulmaceae.  Tree: Zavada and Kim (1996), Figure 1.  Cannabis and Humulus
+are separate terminals.  Species: Mabberley (1997).
+
+       Anura.  Tree: Hedges and Maxson (1993), Figure 2.  Terminals are
+families.  Species: Frost (1985) and Duellman (1993).
+
+       Salamanders.  Tree: Larson and Dimmick (1993), Figures 3, 4a, and 4b.
+The tree is the strict consensus of the trees in the figures.  Terminals are
+subfamilies.  Species: Frost (1985) and Duellman (1993).
+
+       Anseriformes.  Tree: Livesey (1986), Figure 1.  Species: Sibley and
+Monroe (1990, 1993).
+
+       Ciconiidae.  Slikas (1997), Figure 4.
+
+       Corvini.  Tree: Saunders and Edwards (2000), Figure 5.  Species: Sibley
+and Monroe (1990, 1993).
+
+       Trogonidae.  Tree: Espinosa de los Monteros (1998), Figure 3.  Species:
+Sibley and Monroe (1990, 1993).
+
+       Chaenopsidae.  Hastings and Springer (1994), Figure 21.  Terminals are
+genera, except that the Coralliozetus clade and the Chaenopsis clade are
+terminals.
+
+       Curimatidae.  Vari (1989), Figure 44.
+
+       Bathygeridae.  Tree: Allard and Honeycutt (1992), Figure 4.  Species:
+Wilson and Reeder (1993).
+
+       Eutheria.  Tree: Liu et al. (2001), Figure 1.  Terminals are families,
+except that Odontoceti, Carnivora, and Primates are terminals.  Species:
+Wilson and Reeder (1993), except that recently extinct species are not counted.
+
+       Odontoceti.  Tree: Messenger and McGuire (1998), Figure 1.  Because of
+paraphyletic genera, Phocoenidae are lumped into a single terminal, and
+Delphinidae other than Orcaella are lumped into another single terminal.
+Species: Wilson and Reeder (1993).
+
+       Elapidae.  Tree: Slowinski and Keogh (2000), Figure 1.  Calliophis and
+Hemibungarus are separate terminals; the Asian and African species of the
+paraphyletic genus Naja are two separate terminals.  Species:
+www.embl-heidelberg.de/~uetz/families/taxa.html
+
+       Phrynosomatidae.  Tree: Wiens (2000), Figure 1. Species:
+www.embl-heidelberg.de/~uetz/families/taxa.html
+
+       Pleurodira.  Tree: Georges et al. (1998), Figure 2.  The paraphyletic
+genus Elseya is lumped into a single terminal with the nested genera
+Rheodytes, Elusor, and Emydura.  Species:
+www.embl-heidelberg.de/~uetz/families/taxa.html
+
+       Squamata.  Tree: Lee (1998), Figure 3.  Terminals are families, except
+that Serpentes and Amphisbaenia are terminals.  Species:
+www.embl-heidelberg.de/~uetz/families/taxa.html
+
+       Life.  Lecointre and Le Guyader (2001), Trees 1-13 and 15.  Terminals
+range in rank from order to phylum or dividion; Eutheria are lumped into a
+single terminal.
+
+REFERENCES
+
+Agosti, D.  1994.  The phylogeny of the ant tribe Formicini (Hymenoptera:
+       Formicidae) with the description of a new genus.  Syst. Entomol.
+       19:93-117.
+
+Allard, M. W., and R. L. Honeycutt.  1992.  Nucleotide sequence variation in
+       the mitochondrial 12S rRNA gene and the phylogeny of the African mole-
+       rats (Rodentia: Bathygeridae).  Mol. Biol. Evol. 9:27-40.
+
+Anderberg, A. A.  1994a.  Tribe Inuleae.  Pages 274-291 in Asteraceae:
+       Cladistics and classification (K. Bremer, ed.).  Timber Press, Portland,
+       Oregon.
+
+Anderberg, A. A.  1994b.  Tribe Plucheeae.  Pages 292-303 in Asteraceae:
+       Cladistics and classification (K. Bremer, ed.).  Timber Press, Portland,
+       Oregon.
+
+Archangelsky, M.  1998.  Phylogeny of Hydrophiloidea (Coleoptera:
+       Staphyliniformia) using characters from adult and preimaginal stages.
+       Syst. Entomol. 23:9-24.
+
+Bradford, J. C., and R. W. Barnes.  2001.  Phylogenetics and classification of
+       Cunoniaceae (Oxidales) using chloroplast DNA sequences and morphology.
+       Syst. Bot. 26:354-385.
+
+Bremer, K.  1994a.  Subfamily Barnadesioideae.  Pages 49-60 in Asteraceae:
+       Cladistics and classification (K. Bremer, ed.).  Timber Press, Portland,
+       Oregon.
+
+Bremer, K.  1994b.  Tribe Cardueae.  Pages 112-156 in Asteraceae: Cladistics
+       and classification (K. Bremer, ed.).  Timber Press, Portland, Oregon.
+
+Bremer, K.  1994c.  Tribe Liabeae.  Pages 234-245 in Asteraceae: Cladistics
+       and classification (K. Bremer, ed.).  Timber Press, Portland, Oregon.
+
+Bremer, K., and C. J. Humphries.  1993.  Generic monograph of the Asteraceae-
+       Anthemidae.  Bull. Nat. Hist. Mus. Lond. (Bot.) 23:71-177.
+
+Carmean, D., and L. Kimsey.  1998.  Phylogenetic revision of the parasitoid
+       wasp family Trigonalidae (Hymenoptera).  Syst. Entomol. 23:35-76.
+
+Coddington, J. A.  1986.  The genera of the spider family Theridiosomatidae.
+       Smithson. Contrib. Zool. 422:1-96.
+
+Cooke, D. A.  1998.  Centrolepidaceae.  Pages 75-99 in The families and genera
+       of vascular plants, Volume IV (K. Kubitzki, ed.).  Springer, Berlin.
+
+Cox, A. V., A. M. Pridgeon, V. A. Albert, and M. W. Chase.  1997.
+       Phylogenetics of the slipper orchids (Cypripedioideae, Orchidaceae):
+       Nuclear rDNA ITS sequences.  Plant Syst. Evol. 208:197-223.
+
+Davis, D. R.  1989.  Generic revision of the Opostegidae, with a synoptic
+       catalog of the world's species (Lepidoptera: Nepticuloidea).  Smithson.
+       Contrib. Zool. 478:1-97.
+
+de Meyer, M.  1996.  World catalogue of Pipunculidae (Diptera).  Doc. Travail
+       Inst. R. Soc. Nat. Belg. 86:1-127.
+
+Duellman, W. E.  1993.  Amphibian species of the world: Additions and
+       corrections.  University of Kansas, Lawrence, Kansas.
+
+Engel, M. S.  2000.  Classification of the bee tribe Augochlorini
+       (Hymenoptera: Halictidae).  Bull. Am. Mus. Nat. Hist. 250:1-90.
+
+Ericsson, R.  1994.  Phylogeny of the Cyclanthaceae.  Plant Syst. Evol.
+       190:31-47.
+
+Espinosa de los Monteros, A.  1998.  Phylogenetic relationships among the
+       trogons.  Auk 115:937-954.
+
+Frost, D. R.  1985.  Amphibian species of the world: A taxonomic and
+       geographical reference.  Allen Press, Lawrence, Kansas.
+
+Gauld, I. D., and D. B. Wahl.  2000.  The Labeninae (Hymenoptera:
+       Ichneumonidae): A study in phylogenetic reconstruction and evolutionary
+       biology.  Zool. J. Linn. Soc. 129:271-347.
+
+Georges, A., J. Birrell, K. M. Saint, W. McCord, and S. C. Donnellan.  1998.
+       A phylogeny for side-necked turtles (Chelonia: Pleurodira) based on
+       mitochondrial and nuclear gene sequence variation.  Biol. J. Linn. Soc.
+       67:213-246.
+
+Graham, S. A., J. V. Crisci, and P. C. Hoch.  1993.  Cladistic analysis of the
+       Lythraceae sensu lato based on morphological characters.  Bot. J. Linn.
+       Soc. 113:1-33.
+
+Grandcolas, P.  1994.  Phylogenetic systematics of the subfamily Polyphaginae,
+       with the assignment of Cryptocercus Scudder, 1862 to this taxon
+       (Blattaria, Blaberoidea, Polyphagidae).  Syst. Entomol. 19:145-158.
+
+Hansen, M.  1999.  Hydrophiloidea (s. str.) (Coleoptera).  Apollo Press,
+       Stenstrup, Denmark.
+
+Harbach, R. E., and I. J. Kitching.  1998.  Phylogeny and classification of
+       the Culicidae (Diptera).  Syst. Entomol. 23:327-370.
+
+Harvey, M. S.  1995.  The systematics of the spider family Nicodamidae
+       (Araneae: Amaurobioidea).  Invertebr. Taxon. 9:279-386.
+
+Hastings, P. A., and V. G. Springer.  1994.  Review of Stathmonotus, with
+       redefinition and phylogenetic analysis of the Chaenopsidae (Teleostei:
+       Blennioidei).  Smithson. Contrib. Zool. 558:1-48.
+
+Hedges, S. B., and L. R. Maxson.  1993.  A molecular perspective on
+       lissamphibian phylogeny.  Herpetol. Monogr. 7:27-42.
+
+Hoare, A. L., and S. Knapp.  1997.  A phylogenetic conspectus of the tribe
+       Hyoscyameae (Solanaceae).  Bull. Nat. Hist. Mus. Lond. (Bot.) 27:11-29.
+
+Hong, X., and Z.-Q. Zhang.  1997.  Systematics and generic relationships of
+       the mites in the subfamily Diptilomiopinae (Acari: Eriophytoidea:
+       Diptilomiopidae).  Syst. Entomol. 22:313-331.
+
+Hull, F. M.  1973.  Bee flies of the world: The genera of the family
+       Bombyliidae.  Smithsonian Institution Press, Washington, D. C.
+
+Katzourakis, A., A. Purvis, S. Azmeh, G. Rotheray, and F. Gilbert.  2001.
+       Macroevolution of hoverflies (Diptera: Syrphidae): The effect of using
+       higher-level taxa in studies of biodiversity, and correlates of species
+       richness.  J. Evol. Biol. 14:219-227.
+
+Knight, K. L., and A. Stone.  1977.  A catalogue of the mosquitoes of the
+       world, 2nd edition.  Entomological Society of America, College Park,
+       Maryland.
+
+Larson, A., and W. W. Dimmick.  1993.  Phylogenetic relationships of the
+       salamander families: An analysis of congruence among morphological and
+       molecular characters.  Herpetol. Monogr. 7:77-93.
+
+Lecointre, G., and H. Le Guyader.  2001.  Classification phylogenetique du
+       vivant, 2e edition.  Belon, Paris.
+
+Lee, M. S. Y.  1998.  Convergent evolution and character correlation in
+       burrowing reptiles: Towards a resolution of squamate relationships.
+       Biol. J. Linn. Soc. 65:369-453.
+
+Les, D. H., E. L. Schneider, D. J. Padgett, P. S. Soltis, D. E. Soltis, and
+       M. Zanis.  1999.  Phylogeny, classification, and floral evolution of
+       water lilies (Nymphaeaceae; Nymphaeales): A synthesis of non-molecular,
+       rbcL, matK, and 18S rDNA data.  Syst. Bot. 24:28-46.
+
+Linder, H. P., B. G. Briggs, and L. A. S. Johnson.  1998.  Restionaceae.
+       Pages 425-445 in The families and genera of vascular plants, Volume IV
+       (K. Kubitzki, ed.).  Springer, Berlin.
+
+Linder, H. P., B. G. Briggs, and L. A. S. Johnson.  2000.  Restionaceae: A
+       morphological phylogeny.  Pages 653-660 in Monocots: Systematics and
+       evolution (K. L. Wilson and D. A. Morrison, eds.).  CSIRO, Collingwood,
+       Victoria.
+
+Liu, F.-G. R., M. M. Miyamoto, N. P. Freire, P. Q. Ong, M. R. Tennant, T. S.
+       Young, and K. F. Gugel.  2001.  Molecular and morphological supertrees
+       for eutherian (placental) mammals.  Science 291:1786-1789.
+
+Livezey, B. C.  1986.  A phylogenetic analysis of recent anseriform genera
+       using morphological characters.  Auk 103:737-757.
+
+Mabberley, D. J.  1997.  The plant-book, 2nd edition.  Cambridge Univ. Press,
+       Cambridge, U. K.
+
+McGavin, G. C.  2001.  Essential entomology.  Oxford Univ. Press, Oxford,
+       U. K.
+
+McHugh, J. V.  1993.  A revision of Eurysphindus Leconte (Coleoptera,
+       Cucujoidea, Sphindidae) and a review of sphindid classification and
+       phylogeny.  Syst. Entomol. 18:57-92.
+
+McKamey, S. H., and L. L. Dietz.  1996.  Generic revision of the New World
+       tribe Hoplophorionini (Hemiptera: Membracidae: Membracinae).  Syst.
+       Entomol. 21:295-342.
+
+Messenger, S. L., and J. A. McGuire.  1998.  Morphology, molecules, and the
+       phylogenetics of cetaceans.  Syst. Biol. 47:90-124.
+
+Nordenstam, B.  1994.  Tribe Calendulae.  Pages 365-376 in Asteraceae:
+       Cladistics and classification (K. Bremer, ed.).  Timber Press, Portland,
+       Oregon.
+
+Penz, C. M.  1999.  Higher level phylogeny for the passion-vine butterflies
+       (Nymphalidae, Heliconiinae)  based on early stage and adult morphology.
+       Zool. J. Linn. Soc. 127:277-344.
+
+Raphael, J. A., and M. de Meyer.  1992.  Generic classification of the family
+       Pipunculidae (Diptera): A cladistic analysis.  J. Nat. Hist. 26:637-658.
+
+Robinson, G. S., and K. R. Tuck.  1997.  Phylogeny and composition of the
+       Hieroxestinae (Lepidoptera: Tineidae).  Syst. Entomol. 22:363-396.
+
+Riog-Junent, S.  2000.  The subtribes and genera of the tribe Broscini
+       (Coleoptera: Carabidae): Cladistic analysis, taxonomic treatment, and
+       biogeographical considerations.  Bull. Am. Mus. Nat. Hist. 255:1-90.
+
+Rudall, P. J., M. W. Chase, D. F. Cutler, J. Rusby, and A. Y. de Bruijn.
+       1998.  Anatomical and molecular systematics of Asteliaceae and
+       Hypoxidaceae.  Bot. J. Linn. Soc. 127:1-42.
+
+Rudall, P. J., J. G. Conran, and M. W. Chase.  2000.  Systematics of the
+       Ruscaceae/Convallariaceae:  A combined morphological and molecular
+       investigation.  Bot. J. Linn. Soc. 134:73-92.
+
+Saunders, M. A., and S. V. Edwards.  2000.  Dynamics and phylogenetic
+       implications of mtDNA control region sequences in New World jays (Aves:
+       Corvidae).  J. Mol. Evol. 51:97-109.
+
+Scholtz. C. H., D. D'Hotman, A. V. Evans, and A. Nel.  1988.  Phylogeny and
+       systematics of the Ochodaeidae (Insecta: Coleoptera: Scarabaeoidea).
+       J. Entomol. Soc. Southern Afr. 51:207-240.
+
+Schutte, A. L., and B.-E. van Wyk.  1998.  Evolutionary relationships in the
+       Podalyrieae and Liparieae (Fabaceae) based on morphological,
+       cytological, and chemical evidence.  Plant Syst. Evol. 209:1-31.
+
+Shattuck, S. O.  1995.  Generic-level relationships within the ant subfamily
+       Dolichoderinae (Hymenoptera, Formicidae).  Syst. Entomol. 20:217-228.
+
+Shaw, S. R.  1990.  Phylogeny and biogeography of the parasitoid wasp family
+       Megalyridae (Hymenoptera).  J. Biogeogr. 17:569-581.
+
+Sibley, C. G., and B. L. Monroe.  1990.  Distribution and taxonomy of the
+       birds of the world.  Yale Univ. Press, New Haven, Connecticut.
+
+Sibley, C. G., and B. L. Monroe.  1993.  A supplement to distribution and
+       taxonomy of the birds of the world.  Yale Univ. Press, New Haven,
+       Connecticut.
+
+Slikas, B.  1997.  Phylogeny of the avian family Ciconiidae (Storks) based on
+       cytochrome b sequences and DNA-DNA hybridization distances.  Mol.
+       Phylogenet. Evol. 8:275-300.
+
+Slowinski, J. B., and J. S. Keogh.  2000.  Phylogenetic relationships of
+       elapid snakes based on cytochrome b mtDNA sequences.  Mol. Phylogenet.
+       Evol. 15:157-164.
+
+Smith, L. B., and W. Till.  1998.  Bromeliaceae.  Pages 75-99 in The families
+       and genera of vascular plants, Volume IV (K. Kubitzki, ed.).  Springer,
+       Berlin.
+
+Thompson, G. J., O. Kitade, N. Lo, and R. H. Crozier.  2000.  Phylogenetic
+       evidence for a single, ancestral origin of a 'true' worker caste in
+       termites.  J. Evol. Biol. 13:869-881.
+
+van Welzen, P. C.  1999.  Revision and phylogeny of subtribes Chrozophorinae
+       and Doryxylinae (Euphorbiaceae) in Malesia and Thailand.  Blumea
+       44:411-436.
+
+Varadarajan, G. S., and A. J. Gilmartin.  1988.  Phylogenetic relationships of
+       groups of genera within the subfamily Pitcairnioideae (Bromeliaceae).
+       Syst. Bot. 13:283-293.
+
+Vari, R. P.  1989.  A phylogenetic study of the Neotropical characiform family
+       Curimatidae (Pisces: Ostariophysi).  Smithson. Contrib. Zool. 471:1-71.
+
+Webster, G. L.  1994.  Synopsis of the genera and suprageneric taxa of
+       Euphorbiaceae.  Ann. Mo. Bot. Gard. 81:33-144.
+
+Wheeler, W. C., M. Whiting, Q. D. Wheeler, and J. M. Carpenter.  2001.  The
+       phylogeny of the extant hexapod orders.  Cladistics 17:113-169.
+
+Wiens, J. J.  2000.  Decoupled evolution of display morphology and display
+       behaviour in phrynosomatid lizards.  Biol. J. Linn. Soc. 70:597-612.
+
+Wilson, D. E., and D. M. Reeder (eds.).  1993.  Mammal species of the world.
+       Smithsonian Institution Press, Washington, D. C.
+
+Winterton, S. L., L. Yang, B. M. Wiegmann, and D. K. Yeates.  2001.
+       Phylogenetic revision of Agapophytinae subf. n. (Diptera: Therevidae)
+       based on molecular and morphological evidence.  Syst. Entomol.
+       26:173-211.
+
+Yeates, D. K.  1994.  The cladistics and classification of the Bombyliidae
+       (Diptera: Asiloidea).  Bull. Am. Mus. Nat. Hist. 219:1-191.
+
+Zavada, M. S., and M. Kim.  1996.  Phylogenetic analysis of Ulmaceae.  Plant
+       Syst. Evol. 200:13-20.
+
+Zavortink, T. J.  1979.  Mosquito studies (Diptera: Culicidae).  XXXV: The new
+       sabethine genus Johnbelkinia and a preliminary reclassification of the
+       composite genus Trichosporon.  Contrib. Am. Entomol. Inst. 17:1-62.
+
+TREES
+
+Broscini
+(2I4)
+    0   1
+    2   1
+    3   1
+    1   3
+    4  19
+    3   3
+    4   1
+    6   4
+    5  13
+    6   1
+    7   1
+    2   4
+    4   8
+    5   1
+    5   4
+    7   1
+    6   2
+    7   3
+    8  59
+    9   3
+   10   1
+    3   3
+    8  16
+    7  17
+    6   7
+    5  54
+    4   1
+    5   2
+    6   6
+    6  14
+   -1
+Hydrophiloidea
+(I4,I6)
+    0   183     -------------------
+    2    27     --------/     /
+    3    77     ----/        /
+    1   164     ------------/
+    2    16     --------/
+    3  2336     ----/
+   -1
+Ochodaeidae
+(2I4)
+    0  65
+    3   1
+    2   5
+    3   1
+    1   1
+    2   3
+    3   3
+    4   1
+   -1
+Sphindidae
+(2I4)
+    0   2
+    1   3
+    2   1
+    3   1
+    4   4
+    5  16
+    4  12
+    5   7
+    6   5
+   -1
+Agapophytinae
+(2I4)
+    0   2
+    2   2
+    3  10
+    4   7
+    1   7
+    2   5
+    4   2
+    3   3
+    5   5
+    4  11
+   -1
+Bombyliidae
+(I4,I6)
+    0   300
+    1     5
+    2   251
+    3   317
+    4    31
+    5    44
+    6  1000
+    7    34
+    8     6
+    9    52
+   10     2
+   11   149
+   12   300
+   13  1960
+   14    39
+   15    17
+   -1
+Culicidae
+(I4,I6)
+    0     4
+    2   364
+    3     7
+    1     6
+    3   167
+    2    33
+    4     7
+    5    11
+    3    24
+    5    35
+    6    63
+    4    29
+    7     4
+    6    28
+    7    46
+    9     2
+    8   896
+    9    38
+    9     1
+    9    47
+   10    55
+   11    23
+    5   717
+    7    18
+    8     1
+    6     1
+    7   113
+    8    12
+   10    30
+    9    21
+   10     3
+   11     8
+   10     3
+   12    15
+   11    22
+   12   105
+   13     8
+   14    28
+   -1
+Pipunculidae
+(2I4)
+    0  38
+    2   6
+    3  22
+    1   1
+    3  13
+    2   4
+    4  52
+    3   1
+    4  44
+    6 170
+    5  28
+    7   4
+    6 397
+    8   1
+   10   5
+   11   4
+   12   3
+    9  21
+   10  33
+   11   3
+    7 244
+    8  83
+   -1
+Augochlorini
+(2I4)
+    0   4
+    3   5
+    2   2
+    3  18
+    4   2
+    1  67
+    2   3
+    3   2
+    5   6
+    6   2
+    7  17
+    4   1
+    5   4
+    7  26
+    8   2
+    6  15
+    8   4
+    7 137
+    2   9
+    3   7
+    4   2
+    5   9
+    5   1
+    6  15
+    8   6
+   10   1
+    9  87
+   10  27
+    7   8
+    8   3
+    9   1
+    9   1
+    9   1
+   10   1
+   10   1
+   11   2
+   -1
+Dolichoderinae
+(2I4)
+    0  40
+    1 140
+    3   8
+    4  13
+    5  95
+    6  88
+    2 130
+    3  10
+    6   6
+    5  80
+    6  14
+    7   7
+    8   6
+    4  30
+    5   1
+    7  28
+    6   3
+    7  78
+    9  30
+    8  45
+    9   1
+   -1
+Formicini
+(2I4)
+    0 158
+    2   5
+    3   2
+    1   3
+    2  25
+    3   3
+    4  61
+   -1
+Labenini
+(2I4)
+    0  20
+    2   3
+    3  50
+    1   4
+    4   1
+    3   1
+    2   1
+    3  50
+    4   1
+    5  25
+    6   2
+    7  25
+   -1
+Megalyridae
+(2I4)
+    0  27
+    3   1
+    4   4
+    3   1
+    4  11
+    5   2
+    2   1
+    1   1
+   -1
+Trigonalidae
+(2I4)
+    0   3
+    9   1
+   14   1
+   13   4
+   12   5
+   11   5
+   10   4
+   10   2
+    8   3
+    7  10
+    6  39
+    5   5
+    4   2
+    3   2
+    2   1
+    3   1
+    1  11
+   -1
+Heliconiiti
+(2I4)
+    0   1
+    2   3
+    1   2
+    2   1
+    4   1
+    5   4
+    3   1
+    5   3
+    6  12
+    4  39
+   -1
+Hieroxestinae
+(2I4)
+    0  67
+    4   1
+    3  16
+    4 174
+    2  14
+    1   3
+   -1
+Opostegidae
+(2I4)
+    0   1
+    1   1
+    3   7
+    3   6
+    2  60
+    3  31
+   -1
+Hexapoda
+(I4,I8)
+    0    6000
+    2     500
+    1     800
+    2     350
+    3     360
+    4    2500
+    5    5300
+    6      30
+    8    2500
+    9    2000
+   10    4000
+    7    2000
+    9     200
+    8      20
+   11    1900
+   10   20000
+   11    2500
+    9   82000
+   11    4500
+   12    3000
+   13    5000
+   10  370000
+   12     300
+   13     200
+   13    5000
+   11  198000
+   12    7000
+   14  165000
+   13    2500
+   14     550
+   15     560
+   16  122000
+   -1
+Hoplophorionini
+(2I4)
+    0  27
+    1  24
+    4   1
+    3  13
+    3   9
+    2  26
+    3   2
+    4   3
+   -1
+Isoptera
+(I4,I6)
+    0     1
+    1    20
+    3    19
+    2   419
+    3     1
+    4   343
+    5  1958
+   -1
+Polyphaginae
+(2I4)
+    0   5
+    3   7
+    4   1
+    2   7
+    3  18
+    4   5
+    5   3
+    1  11
+    4   2
+    3   2
+    2  35
+    4   1
+    4   1
+    4   8
+    3   1
+    4   1
+   -1
+Diptilomiopinae
+(2I4)
+    0   1
+    1   1
+    4   1
+    9   1
+   11   1
+   12   2
+   10   1
+    8  43
+    8   2
+    7   1
+    6   6
+    5   5
+    4   2
+    4   1
+    3   2
+    3   1
+    3   1
+    3  31
+    3   1
+    4   1
+    2   2
+    3   3
+    2   1
+   -1
+Nicodamidae
+(2I4)
+    0   2
+    3   1
+    2  11
+    3   3
+    2   6
+    2   2
+    3   2
+    1   1
+    2   1
+   -1
+Theriosomatidae
+(2I4)
+    0   4
+    2   5
+    1   2
+    2   4
+    1  15
+    2  15
+    3   3
+    4   1
+    5   6
+   -1
+Syrphidae
+(I4,I6)
+    0   258
+    2     1
+    2    15
+    3     4
+    1   104
+    2     7
+    1     1
+    2     1
+    2     1
+    2     1
+    2     6
+    3     6
+    1   390
+    2     3
+    2    21
+    2     6
+    2     1
+    2    12
+    4    37
+    3    77
+    5   325
+    5     3
+    5     1
+    4     5
+    7    18
+    8    18
+    6   358
+    8    20
+    8    24
+    7    27
+   10     5
+    9    34
+   10    25
+   10    47
+   11    10
+    8    52
+    9    25
+   10   148
+   11   141
+   11   300
+   11    16
+   11    31
+   11     2
+   11     1
+   11     1
+   11     5
+   11     2
+   11     2
+   11     1
+   11     1
+   11     1
+   11     1
+   11    35
+   11     4
+   12     5
+   11    23
+   13    75
+   12    58
+   14   114
+   13    19
+   15    26
+   16    16
+   14    21
+   15     1
+   16    22
+   18    31
+   19     1
+   17    90
+   19    61
+   21    71
+   22    16
+   23     4
+   24     1
+   20    36
+   22     1
+   21     3
+   22     4
+   23     4
+   24    44
+   24     1
+   24    11
+   24     1
+   24     3
+   18     5
+   21     3
+   20     4
+   21    20
+   22    17
+   19     9
+   20    21
+   21     1
+    5     3
+    6     6
+    6     1
+    6     4
+    6    14
+    6     2
+    6     2
+    7    29
+    6     2
+    8     1
+    8     4
+    9    55
+   10    23
+   11    12
+    7     2
+    9     1
+    9    19
+   10    68
+    8    95
+   10    37
+    9    24
+   11     3
+   11    32
+   12    26
+   13     1
+   14     5
+   10   187
+   12     1
+   11     3
+   13     2
+   15     2
+   15    28
+   16     1
+   14     8
+   16     2
+   15    34
+   17    16
+   16    28
+   18     1
+   18     8
+   18     1
+   17    56
+   18    98
+   19    23
+   21     2
+   21     1
+   21     7
+   21     1
+   21     1
+   21    95
+   21    43
+   21     5
+   21    24
+   21    17
+   21    14
+   21     7
+   21     1
+   21     3
+   22     2
+   23    81
+   20    11
+   21    47
+   21     1
+   21    25
+   21    11
+   21     3
+   21     3
+   21    12
+   22    25
+   21    17
+   22    19
+   23     1
+   23     3
+   23     2
+   23     2
+   23     1
+   23     1
+   12    57
+   15    41
+   14     7
+   15    20
+   16     1
+   17    12
+   13    31
+   16     1
+   17     2
+   17     1
+   15     2
+   17     3
+   17     1
+   17     4
+   19    17
+   18    49
+   19     3
+   16     1
+   17     1
+   18     3
+   14     6
+   16     1
+   16     5
+   16    51
+   17     8
+   17     9
+   15     6
+   18     6
+   17    17
+   18     3
+   16    18
+   17     1
+   -1
+Angiosperms
+(I4,I6)
+    0     1
+    1    81
+    2     5
+    5    86
+    4     2
+    3    10
+    5     2
+    6    43
+    9     1
+   11     1
+   13    20
+   12     3
+   14    16
+   13   120
+   14    18
+   10    12
+   12    90
+   11     1
+   12    80
+    8  2575
+    8    22
+    7     3
+    8    80
+   10   700
+   12   180
+   11    32
+   12   270
+    9    20
+   11   155
+   12   890
+   10     6
+   13  2500
+   13     2
+   15     6
+   16    75
+   17   640
+   18    30
+   14     2
+   16     7
+   15    24
+   16    80
+   17    55
+   18   200
+   19   700
+   19   400
+   13    80
+   14    10
+   16  2400
+   15    10
+   16     4
+   18   357
+   20     9
+   19     2
+   20     1
+   21 12000
+   17  1100
+   19   288
+   18     4
+   19  5000
+   20   428
+   12 18520
+   14    11
+   15   206
+   16     4
+   13    28
+   15     3
+   16     4
+   14  1800
+   15     2
+   16    86
+   18    28
+   19   796
+   17     1
+   19   783
+   19   116
+   19   767
+   19   434
+   20   140
+   18     9
+   20   800
+   19   502
+   11     4
+   12   320
+   14   494
+   13   140
+   14   200
+   15     6
+   16   217
+    4    65
+    5  3000
+   10     7
+    9   306
+    8    16
+    9   120
+    7     7
+    9   154
+   11    12
+   12     1
+   10    57
+   11   168
+   12  2500
+    8   300
+    9   230
+   11     2
+   12     2
+   10     2
+   11  1200
+    6   665
+    8     2
+    9     1
+   11    45
+   10   520
+   11  1500
+   12   630
+    7     2
+    9  1050
+    8   107
+    9     2
+   10    71
+   11    52
+   12   400
+   15  2062
+   14     4
+   15     1
+   19     3
+   20    20
+   18    82
+   19   112
+   17   800
+   19   775
+   18   120
+   19    90
+   16     1
+   17     2
+   19     7
+   18     3
+   20  1554
+   21   130
+   22  2617
+   19  2300
+   20    10
+   21  2250
+   14     3
+   15     1
+   14     5
+   17    81
+   16    10
+   17   250
+   18   212
+   15   600
+   18     5
+   19   100
+   17    11
+   20   310
+   19   975
+   20   100
+   21   130
+   22   615
+   23  1335
+   18   460
+   20     2
+   19   100
+   21   500
+   22    20
+   23   180
+   20     2
+   22     1
+   23   301
+   21   120
+   23    13
+   24  3350
+   22    14
+   23     2
+   24   341
+   16    80
+   20    50
+   19     4
+   20   402
+   21     5
+   18   744
+   20   162
+   19     7
+   21    22
+   20    14
+   21     2
+   23    11
+   25    12
+   26    17
+   24    40
+   25   300
+   26    40
+   27 13000
+   22    30
+   23   150
+   24  2000
+   20    42
+   22    60
+   21     3
+   22    75
+   20     3
+   21     3
+   23     1
+   24     8
+   22     6
+   23    19
+   26    57
+   27  3310
+   25   200
+   24   848
+   17     2
+   18   173
+   18     1
+   19    16
+   18 10200
+   21  4906
+   20     1
+   21     5
+   23   615
+   22     3
+   23   275
+   24  2000
+   25  1854
+   26  1681
+   27    39
+   28     2
+   31  1550
+   32     6
+   30    41
+   32    20
+   33  3510
+   31   745
+   32  1040
+   33  6700
+   29     9
+   30     2
+   31   246
+   19     5
+   21  2666
+   20     5
+   22     2
+   23    11
+   21  1820
+   22  2093
+   13    35
+   16     1
+   15     2
+   18    33
+   17     2
+   19   145
+   18  1500
+   16    17
+   17   150
+   18   584
+   15    80
+   16    13
+   14   920
+   15     1
+   16     1
+   20     1
+   21     1
+   19    16
+   20    10
+   21    10
+   18   700
+   19    17
+   20    19
+   17    50
+   16   500
+   20   620
+   21   640
+   19  4620
+   20   200
+   21    10
+   23     1
+   24     1
+   25    10
+   26    25
+   22  4830
+   18    11
+   20     2
+   23     1
+   22    89
+   21    12
+   23    55
+   22     1
+   23    11
+   24     1
+   26    12
+   27     2
+   25     2
+   27     2
+   26    16
+   28     1
+   29    80
+   27  3850
+   19     5
+   22     1
+   23     8
+   21     5
+   24   610
+   25   500
+   23  2200
+   22  1800
+   23   575
+   24   101
+   20   812
+   22   820
+   23     3
+   21    10
+   21    17
+   22    14
+   23  2967
+   17    34
+   22  7000
+   21   831
+   22  1100
+   20    30
+   21   963
+   23    36
+   24   130
+   25   371
+   22    25
+   21   130
+   21   142
+   22     3
+   23   800
+   24     3
+   21   650
+   21   203
+   22    20
+   21    79
+   22    12
+   23   596
+   21    27
+   23     2
+   22    50
+   21    15
+   22  1050
+   21   660
+   21   370
+   19   393
+   22    45
+   24     1
+   23   260
+   21   955
+   20     3
+   21     2
+   22    50
+   23  1300
+   18   301
+   19     3
+   21   860
+   22    10
+   23 18000
+   20    36
+   23     2
+   25   920
+   25   640
+   25     1
+   24     5
+   25    15
+   22    35
+   23   865
+   24    51
+   26    55
+   25     1
+   26    65
+   27   110
+   21  2000
+   22     1
+   25     1
+   24   950
+   23    48
+   24   134
+   25   825
+   26  1675
+   -1
+Anthemideae
+(2I4)
+    0  38
+    2   4
+    3  18
+    5   6
+    5   1
+    4   7
+    5  39
+    6   1
+    1   9
+    2   1
+    2   3
+    2   8
+    2   4
+    2   1
+    1 152
+    2   2
+    2  21
+    3   9
+    4   9
+    3  19
+    4   1
+    1   1
+    2   4
+    3  10
+    1   1
+    2   1
+    3   1
+    4   1
+    5   4
+    1  10
+    2  37
+    3   4
+    3   1
+    2  34
+    2   3
+    2   2
+    2   1
+    2   1
+    2   9
+    2   2
+    2 134
+    2   1
+    2 388
+    2   3
+    2   2
+    2   1
+    3   1
+    1   8
+    2   1
+    2 115
+    3  12
+    4   1
+    2   2
+    3   6
+    3   1
+    4   1
+    1 211
+    1   1
+    1   2
+    2   1
+    3   1
+    3  24
+    1   1
+    3   1
+    4   1
+    2   1
+    3   2
+    3   1
+    4   2
+    5   9
+    6  33
+    7  12
+    7   3
+    9   1
+    8   2
+    9   1
+   10   3
+   10   2
+    1   9
+    2   1
+    4   2
+    3   2
+    4   3
+    1   4
+    3  23
+    3   4
+    2   3
+    2   8
+    2   1
+    2   1
+    3   1
+    2   7
+    3   4
+    2   1
+    2   2
+    3   5
+    2   1
+    2  38
+    2   2
+    2   3
+    3   1
+    2   1
+    3  55
+    4  33
+    4   8
+    3  12
+    4   8
+    4  26
+   -1
+Asteloids
+(2I4)
+    0  25
+    4   5
+    3   4
+    2  15
+    5  10
+    6   1
+    4  89
+    6   6
+    5   1
+    7  30
+    6   2
+    3   1
+    1   4
+   -1
+Barnadesioideae
+(2I4)
+    0   1
+    2   2
+    3   1
+    1  20
+    2  40
+    2   3
+    3   1
+    4  23
+    5   1
+   -1
+Calenduleae
+(2I4)
+    0   8
+    3   2
+    2  19
+    1   2
+    2  20
+    3  45
+    4   1
+    5  15
+   -1
+Cardueae-Carlininae
+(2I4)
+    0   2
+    2   2
+    3   1
+    2  30
+    2   2
+    2   7
+    2  28
+    2   1
+    1   8
+    2   4
+    3   1
+    4   5
+    5   2
+   -1
+Chrozophoreae
+(2I4)
+    0   2
+    3  40
+    2   1
+    3  18
+    4  20
+    4  45
+    1  10
+    2   1
+    3   2
+    4   1
+    5   1
+   -1
+Cunoniaceae
+(2I4)
+    0 190
+    8  17
+    9  26
+    7   1
+    6  15
+    5  11
+    5  27
+    5   1
+    5   2
+    5   1
+    5   6
+    4   4
+    3   1
+    6   1
+    5   5
+    4  18
+    2   2
+    1  20
+   -1
+Cyclanthaceae
+(2I4)
+    0   4
+    6   7
+    5  40
+    4   3
+    3   1
+    6   1
+    5   4
+    4  89
+    4   1
+    3  49
+    2   1
+    1   1
+   -1
+Cypripedioideae
+(2I4)
+    0  64
+    3  15
+    4   1
+    2  40
+    1   6
+   -1
+Hyoscyameae
+(2I4)
+    0  24
+    1   1
+    2   1
+    3   4
+    5   2
+    4   3
+    5   5
+   -1
+Inuleae
+(2I4)
+    0  32
+    1   6
+    3  27
+    4   1
+    2   8
+    6   3
+    5   1
+    4   2
+    3   1
+    2   4
+    3   3
+    2   1
+    2   2
+    2   1
+    3 100
+    4   1
+    4  18
+    4   1
+    4   1
+    5  25
+    4   2
+    4   1
+    4  13
+    6   2
+    5 100
+    6   1
+    7   2
+    8   9
+    4   2
+    5   5
+    7  80
+    6   1
+    7   9
+    8   3
+    9  11
+   -1
+Liabeae
+(2I4)
+    0   1
+    1  12
+    3  38
+    2   7
+    3   1
+    4   3
+    4   3
+    6   7
+    5   6
+    6  23
+    6   6
+    8  43
+    7   4
+    8   5
+   -1
+Lythraceae
+(2I4)
+    0   5
+    3   2
+    2   2
+    3  56
+    4   1
+    1   1
+    3   1
+    2   1
+    3   1
+    4   1
+    4  72
+    5   2
+    6   1
+    7  15
+    7   3
+    7   2
+    5  50
+    6  25
+    6  35
+    6  44
+    7   4
+    7   1
+    7   2
+    3   1
+    4   1
+    5   1
+    5   2
+    6   1
+    6   6
+    7  11
+    8 275
+   -1
+Nymphaeales
+(2I4)
+    0   2
+    6   1
+    5  50
+    4   1
+    3   4
+    2  16
+    1   5
+    2   1
+   -1
+Pitcairnioideae
+(2I4)
+    0  14
+    4   2
+    6 124
+    5  29
+    3  51
+    4 190
+    2   1
+    6   5
+    8  16
+    7  98
+    5  39
+    4 285
+    5  68
+    3   3
+    1  21
+   -1
+Plucheeae
+(2I4)
+    0   2
+    1   1
+    3   1
+    4   1
+    2   5
+    4   1
+    5  18
+    3   1
+    5   1
+    6  17
+    7   7
+    5   2
+    6   4
+    4   8
+    5   1
+    5   2
+    6   1
+    6   1
+    6  80
+    7   1
+    5   1
+    7   2
+    8   2
+    6  14
+    7   1
+    7   1
+    8  40
+    9   1
+   -1
+Podalyrieae
+(2I4)
+    0   9
+    2  21
+    3  21
+    1  23
+    2  20
+    3  19
+    4   3
+    5   2
+    6   7
+   -1
+Restionaceae
+(2I4)
+    0   2
+    2  22
+    4   8
+   13   2
+   15   1
+   14   1
+   13  18
+   14   1
+   13   1
+   13   2
+   13   5
+   13   1
+   13   1
+   12   2
+   11   1
+   10   4
+   11  20
+   11   6
+    9  16
+   10   4
+   14   3
+   15   1
+   13   1
+   12   8
+   11   1
+    8   2
+    8   3
+   10   8
+   11   4
+   11   4
+   11   3
+   11   3
+   11  10
+   11   1
+    9   1
+    7   1
+    6   9
+    7  48
+   11  34
+   12   7
+   10  35
+   13  12
+   12   1
+   11  11
+    9   8
+    9  93
+    8  23
+    7   6
+   11  12
+   10  15
+    9   7
+    8   2
+    8   1
+    8  15
+    8   3
+    5   2
+    3   7
+    1   3
+   -1
+Ruscaceae
+(2I4)
+    0  11
+   10   2
+    9  15
+   11   1
+   10   1
+    8   2
+    7   1
+    9   1
+    8   6
+    6  10
+    5   6
+    7  57
+    6  28
+    4  80
+    5  50
+    3   1
+    6  25
+    5  16
+    4   5
+    5  54
+    2   2
+    1 100
+   -1
+Ulmaceae
+(2I4)
+    0   2
+    2   2
+    3   1
+    4   1
+    4   1
+    4  28
+    4   4
+    1  10
+    2   5
+    3   1
+    3   2
+    3   6
+    3   1
+    4 100
+    5   5
+    7  12
+    6   8
+    7   2
+    8   1
+    9   3
+   -1
+Anura
+(I4,I6)
+    0     1
+    2     3
+    3    90
+    4     2
+    5     1
+    6    16
+    7    28
+    1   300
+    4   313
+    3   702
+    2     5
+    3     3
+    4   110
+    5   843
+    6    94
+    7     2
+    8   159
+   10   368
+    9   204
+   10   720
+   -1
+Salamanders
+(I4,I6)
+    0     3
+    2   246
+    2     4
+    2     6
+    3    55
+    4    32
+    5     4
+    2     3
+    3    36
+    1     3
+   -1
+Anseriformes
+(2I4)
+    0   2
+    2   1
+    1   1
+    2   8
+    3   1
+    4   1
+    8   5
+    7   1
+    6  10
+    8   5
+    7   1
+    5   1
+    6   1
+    7   1
+    9   7
+   10   1
+   10   1
+   11   5
+   11   1
+   10   1
+   11   4
+   13   1
+   12   1
+    8   1
+    9   2
+   10   2
+    9   1
+   10   3
+   11  41
+   12   1
+   12   1
+   12   1
+   12   1
+   13   1
+   14   3
+   15  12
+   12   1
+   14   3
+   15   1
+   16   1
+   17   3
+   18   1
+   19   1
+   21   3
+   20   1
+   21   5
+   13   1
+   14   1
+   15   6
+   16   1
+   -1
+Ciconiidae
+(2I4)
+    0   3
+    2   4
+    3   2
+    1   7
+    2   2
+    3   1
+   -1
+Corvini
+(2I4)
+    0   5
+    3   2
+    2   2
+    5   1
+    4  16
+    3   1
+    1   9
+   -1
+Trogonidae
+(2I4)
+    0  17
+    4   5
+    5   1
+    3   2
+    2  11
+    1   3
+   -1
+Chaenopsidae
+(2I4)
+    0   9
+    1   1
+    2  18
+    5  25
+    4  17
+    5   3
+    3   6
+   -1
+Curimatidae
+(2I4)
+    0   5
+    1   5
+    2  21
+    3  11
+    4  30
+    5   7
+    5   7
+    5  31
+   -1
+Bathygeridae
+(2I4)
+    0   1
+    1   1
+    2   2
+    4   1
+    3   7
+   -1
+Eutheria
+(I4,I6)
+    0    16
+   11     3
+   10     2
+   12     4
+   13     2
+   16    47
+   15   135
+   14     1
+   11     6
+    9     4
+   11     6
+   12     1
+   10    67
+    8     8
+    9     4
+   10     5
+    7   268
+    8     7
+    6   163
+    7    47
+    8     3
+   11     1
+   10    12
+   11     5
+   12   130
+    9     2
+   12     8
+   11   141
+   10     5
+   15     2
+   14     2
+   13     1
+   12    81
+   13   317
+   11     1
+    5     2
+    6   233
+    7    19
+    4    25
+    6    54
+    5     7
+    6     1
+   11   273
+   10     2
+    9    35
+   10    59
+    8    51
+    9  1306
+   10     1
+   11    26
+    7    12
+   10     2
+    9    11
+    8    12
+    9     6
+   12     3
+   11    47
+   13    70
+   14     1
+   12    12
+   10     1
+   12     2
+   11    14
+   11     1
+   11    13
+    3    18
+    5    24
+    4     2
+    6   312
+    7    42
+    5    21
+    2     6
+    4     2
+    5     1
+    6     3
+    3    15
+    4     1
+    1     3
+    4     2
+    3     4
+    2    19
+   -1
+Odontoceti
+(2I4)
+    0   1
+    2   2
+    1   2
+    3   1
+    4   1
+    5   2
+    6  12
+    2   2
+    3   1
+    4   1
+    6   1
+    5   1
+    7   1
+    6   5
+    6   1
+    7  31
+   -1
+Elapidae
+(2I4)
+    0   9
+    4   3
+    3   2
+    2   1
+    3  65
+    1   1
+    6   2
+    5  11
+    6   1
+    8   2
+    7   9
+    4   1
+    3   9
+    2   4
+    4  12
+    3   1
+   -1
+Phrynosomatinae
+(2I4)
+    0  14
+    2   4
+    5   1
+    4   1
+    3   5
+    1   9
+    2   2
+    3   9
+    4  77
+   -1
+Pleurodira
+(2I4)
+    0   1
+    4  15
+    3  13
+    2   1
+    4   1
+    7   4
+    6   5
+    5   1
+    6   8
+    3   2
+    1   1
+    3  18
+    2   1
+    4   6
+    3   1
+   -1
+Squamata
+(I4,I6)
+    0   892
+    2   379
+    3   160
+    1    26
+    3  1054
+    4    36
+    2   279
+    4   120
+    5   194
+    3    86
+    4  1289
+    4   112
+    5     7
+    6     2
+    7     1
+    9    58
+    8  2955
+    9   165
+   10    16
+   -1
+Life
+(I4,I8)
+    0     179
+    3     179
+    4     996
+    5     459
+    6    1457
+    2    3125
+    4    1408
+    3     152
+    4      55
+    2      38
+    3     116
+    4     269
+    2     344
+    2     113
+    2      78
+    2      21
+    2      14
+    2      18
+    1      14
+    3       8
+    4      29
+    2       1
+    3      30
+    4      18
+    5      42
+    6       2
+    7       4
+    8      53
+    9      29
+   10      29
+    1      13
+    3    5500
+    4    3679
+    5     180
+    5       1
+    6      40
+    6       4
+    8      81
+    8      15
+    9    9100
+   10     300
+   11   15000
+   12    1275
+   13      20
+   15    9500
+   14       1
+   16     600
+   15     130
+   15      91
+   16  233885
+    7    4000
+    2  100000
+    4     800
+    3     120
+    4       1
+    5    8000
+    5    1000
+    5    1000
+    5    9000
+    6     100
+    6    1200
+    6    1800
+   11    1150
+   11       1
+   10     150
+   11   13780
+   12     900
+   11     350
+   12     100
+   12     900
+   13      15
+   14  103000
+   16     730
+   15   12000
+   16     400
+   11     320
+   11   14360
+    9    4500
+   10     335
+   11      15
+    8     100
+    8     430
+    9      80
+   11     600
+   11    1000
+   13       5
+   14   74445
+   12   12050
+   13      11
+   14       9
+   14   15214
+   14     934
+   14   22671
+   14  830075
+   10   20000
+   12     325
+   11     150
+   12       9
+   12      16
+    7      50
+    7    6000
+    8      85
+    9    1300
+   10      13
+   11      22
+   12      38
+   13     846
+   15       1
+   16       6
+   17     165
+   19     429
+   20    4381
+   18       3
+   20     272
+   21    4221
+   19     290
+   20    6850
+   22       2
+   21    9672
+   22      23
+   14      12
+   15      26
+   16       7
+   17       1
+   18   23668
+    2  105922
+    3     500
+    2    8000
+    3    2200
+    3    5000
+    2     350
+    2     300
+    2     532
+    2   12000
+    2    6000
+    2    1398
+    2     200
+    2     200
+    2      20
+    2       2
+   -1
+END 

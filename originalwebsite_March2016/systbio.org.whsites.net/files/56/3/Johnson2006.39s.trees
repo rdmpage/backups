@@ -1,0 +1,15 @@
+   39  1
+
+((((Pma_marbled_cat, (Pba_Bornean_Bay_cat, Pte_Asian_golden_cat)),
+((Cse_serval, (Cca_caracal, Cau_African_golden_cat)) >0.038,
+(((Lpa_ocelot, Lwi_margay), ((Lja_Andean_mt._cat, Lco_pampas_cat),
+(Lti_tigrina, (Lge_Geoffroys_cat, Lgu_kodkod))) >0.01 ) <0.05, ((Lru_bobcat,
+(Lca_canadian_lynx, (Lly_Eurasian_lynx, Lyp_iberian_lynx))) >0.025,
+((Aju_cheetah, (Pco_puma, Pya_jaguarundi) >0.018) >0.038,
+((Oma_pallas_cat, (Pru_rusty_spotted_cat, (Ppl_flat-headed_cat,
+(Pbe_Asian_leopard_cat, Pvi_fishing_cat)))) >0.01, (Fch_jungle_cat,
+(Fni_black-footed_cat, (Fma_sand_cat, ((Fbi_Chinese_desert_cat,
+Fli_African_wildcat), (Fsi_European_wildcat, Fca_domestic_cat)) >0.01)
+))) >0.042 )) >0.053 ) >0.05 )), (Nne_clouded_leopard,
+((Pun_snow_leopard, Pti_tiger) >0.01, (Ppa_leopard, (Ple_lion,
+Pon_jaguar)))) >0.038 ) <0.16, Pli_banded_linsang) >0.28<0.50;

@@ -1,0 +1,364 @@
+#This code accompanies the paper Quicke, Jones & Epstein (2007) Correcting the problem of false incongruence due to noise imbalance in the incongruence length difference (ILD) test 
+#Systematic Biology, Volume 56, Issue 3 May 2007 , pages 496 - 503
+#The code was written by Owen R. Jones (owen.jones@imperial.ac.uk)
+#
+#
+#This code is for generating Nexus files to serve as PAUP inputs.
+#In this case the noise is added by permuting characters within the original matrix (see the paper for details).
+#There is a function (genNex.replace()) which is implemented in the last few lines of this file.
+
+genNex.replace<-function(path1, path2, numpseudo=5,nincr=10,HSREPS=100,numildreps=20,cong="INC"){
+	
+	#Define the names of the output files
+	paupfile<-paste("paup6",cong,"ILD",numildreps,path1,path2,sep="_")
+	paramfile<-paste("param6",cong,"ILD",numildreps,path1,path2,sep="_")
+	helpfile<-paste("help6",cong,"ILD",numildreps,path1,path2,sep="_")
+		
+	write(file=paupfile,paste("[***START FUNCTION***]"), append=F)
+	write(file=helpfile,paste("pseudorep",	"ildrep",	"noiselev",	"part",	"propnoise"),append=F)
+	
+	# reading the two data partitions
+	# skip the first row (the row of zeros)
+	test1<-data.matrix(read.table(path1,as.is=TRUE,skip=1)) #1st partition
+	test2<-data.matrix(read.table(path2,as.is=TRUE,skip=1)) #2nd partition
+	
+	#get the zero rows
+	test1.zerorow<-data.matrix(read.table(path1,as.is=TRUE,nrows=1)) #1st partition
+	test2.zerorow<-data.matrix(read.table(path2,as.is=TRUE,nrows=1)) #2nd partition
+	
+	originalcombined<-cbind(test1,test2)
+	
+	ntax<-nrow(test1)+1
+	nchar1<-ncol(test1)
+	nchar2<-ncol(test2)
+	tot.chars<-nchar1+nchar2 # total number of characters
+	
+	write(file=paramfile,paste(numpseudo,nincr,HSREPS,numildreps,cong,sep="\t"), append=F)
+	
+	
+	x<-rep(1:nincr,each=ceiling(nchar2/(nincr)))[1:nchar2]
+	propnoise<-cumsum(table(x))/nchar2
+	
+	write(file=paramfile,paste("Noiselevels=",cumsum(table(x))),append=F)
+	write(file=paramfile,paste("Propnoise=",propnoise),append=T)
+	
+	charlist<-1:tot.chars
+		
+	# this little block creates names for the taxa of the form 10A, 11A ..
+	taxnames<-paste("A",array(10:(10+ntax-1)),sep="")
+		
+	write(file=paupfile,paste("#NEXUS\n
+	"), append=T)
+	
+	##########################################################################################
+	# This is a new version link the matrices  with increasing noise into discrete runs
+	write(file=paupfile,paste("
+	BEGIN PAUP;\
+	set autoclose=yes\  notifybeep=no\  showexcluded=no;\
+	LOG file=",paste("!outputlog4_6_",cong,path1,path2,sep="_"),"\ start=yes append=yes;\
+	[logfile created]\
+	ENDBLOCK;
+	"), append=T) 
+	##########################################################################################
+	write(file=paupfile,"[***200 reps to find the shortest MAX NOISE tree***]", append=T)
+	
+	for (r in 1:200){
+	write(file=paupfile,paste("[Noiselev = MAX; Rep = ",r,"of 200.]"), append=T)
+	
+	test1.noisy<-apply(test1,2,sample)
+	test2.noisy<-apply(test2,2,sample)
+	
+	madenoisy<-cbind(test1.noisy,test2.noisy)
+	madenoisy<-rbind(c(test2.zerorow,test2.zerorow),madenoisy)
+	madenoisynames<-cbind(taxnames,madenoisy)
+	tot.chars2<-dim(madenoisy)[2]
+	
+	write(file=paupfile,paste(
+	"BEGIN DATA;\
+	DIMENSIONS NCHAR=",tot.chars2," NTAX=",ntax,
+	";\n
+	FORMAT SYMBOLS=\"0 1\";\n\n
+	MATRIX"), append=T)
+	
+	#####################################################
+	write.table(file=paupfile,madenoisynames, col.names=F, row.names=F, quote=FALSE,  sep="\t",  append=T)
+	#####################################################
+	write(file=helpfile,paste( "999","0","999","1","1"),append=T)
+	write(file=helpfile,paste( "999","0","999","2","1"),append=T)
+	
+	write(file=paupfile,paste(";\
+	ENDBLOCK;"), append=T)
+	
+	write(file=paupfile,paste("BEGIN PAUP;\
+	log stop;\
+	include all;\
+	charset part1=1-",nchar1,"; charset part2=",nchar1+1,"-",tot.chars2,";
+	Exclude part2;\
+	HS START=STEPWISE ADDSEQ=RANDOM NCHUCK=1 CHUCKSCORE=1 NREPS=",HSREPS,";
+	[ORIGINALpartitionONE]\
+	Log start append;\
+	PSCORES 1 /TL=YES RI=YES HI=YES;\
+	log stop;\
+	cleartrees;\
+	include part2;\
+	exclude part1;\
+	HS START=STEPWISE ADDSEQ=RANDOM NCHUCK=1 CHUCKSCORE=1 NREPS=",HSREPS,";\
+	[ORIGINALpartitionTWO]\
+	Log start append;\
+	PSCORES 1 /TL=YES RI=YES HI=YES;\
+	log stop;\
+	cleartrees;\
+	include all;"),append=T)#calculates trees for the two  partitions
+	
+	}
+	
+	
+	##########################################################################################
+	write(file=paupfile,"[***starting pseudoreplicate loop***]", append=T)
+	
+	for(pseudorepnumber in 1:numpseudo) {
+		write(file=paupfile,paste("[***pseudorepnumber = ",pseudorepnumber," ***]"), append=T)
+		write(file=paupfile,paste("[***ORIGINAL TREE**]"), append=T)
+			
+		write(file=paupfile,paste("BEGIN DATA;\
+		DIMENSIONS NCHAR=",tot.chars," NTAX=",ntax,";\n\n
+		FORMAT SYMBOLS=\"0 1\";\n\n
+		MATRIX"), append=T)
+		
+		# this block does a parsimony analysis of the two original partitions
+		######1111###########################################
+		originalcombined<-cbind(test1,test2)
+		originalcombined<-rbind(cbind(test1.zerorow,test1.zerorow),originalcombined)
+		originalwnames<-cbind(taxnames,originalcombined) 
+		write.table(file=paupfile,originalwnames, col.names=F, row.names=F, quote=FALSE,  sep="\t",  append=T)
+		#####################################################
+		
+		write(file=helpfile,paste( pseudorepnumber,"0","0","1","0"),append=T)
+		write(file=helpfile,paste( pseudorepnumber,"0","0","2","0"),append=T)
+				
+		write(file=paupfile,paste(";\
+		ENDBLOCK;"), append=T)
+		write(file=paupfile,paste("
+		BEGIN PAUP;\n\n
+		log stop;\
+		include all;\
+		charset part1=1-",nchar1, 
+		";\
+		charset part2=",nchar1+1,"-",tot.chars,";\n",
+		"Exclude part2;\n
+		HS START=STEPWISE ADDSEQ=RANDOM NCHUCK=1 CHUCKSCORE=1 NREPS=",HSREPS,";\
+		[ORIGINALpartitionONE]\
+		Log start append;\
+		PSCORES 1  /TL=YES RI=YES HI=YES;\
+		log stop;\
+		cleartrees;\
+		include part2;\
+		exclude part1;\n
+		HS START=STEPWISE ADDSEQ=RANDOM NCHUCK=1 CHUCKSCORE=1 NREPS=",HSREPS,";\
+		[ORIGINALpartitionTWO]\
+		Log start append;\
+		PSCORES 1 / TL=YES RI=YES HI=YES;\
+		log stop;\
+		cleartrees;\
+		include all;\n
+		"),append=T)
+		
+		write(file=paupfile,paste(";\
+		ENDBLOCK;"), append=T)
+		
+		#ILD for the original partitions
+		if(numildreps<1){write(file=paupfile,paste("[***NO ILD TEST HAS BEEN CARRIED OUT***]"), append=T)}else{
+		for(ildrep in 1: numildreps){ #now need to create lists of characters for part1 and part2
+			write(file=paupfile,paste("[***ildrep = ",ildrep," ***]"), append=T)
+			
+			#shuffle the characters
+			shufflist<-sample(charlist)
+			
+			#create the character partitions
+			part1<-part1<-shufflist[1:nchar1]
+			part2<-shufflist[(nchar1+1):(nchar1+nchar2)]
+			
+			write(file=paupfile,"[***********STARTING ILD REPLICATE] " , append=T)
+			write(file=helpfile,paste( pseudorepnumber,ildrep,"0","1","0"),append=T)
+			write(file=helpfile,paste( pseudorepnumber,ildrep,"0","2","0"),append=T)
+			
+			write(file=paupfile,paste("charset part1="),append=T)
+			write(file=paupfile,part1,append=T)
+			write(file=paupfile,paste("; charset part2="),append=T)
+			write(file=paupfile,part2,append=T)
+			write(file=paupfile,paste("
+			;\
+			[startingILDpartONE]\
+			include all;\
+			Exclude part2;\
+			HS START=STEPWISE  ADDSEQ=RANDOM  NCHUCK=1  CHUCKSCORE=1  NREPS=",HSREPS,";\
+			log start append;\
+			PSCORES 1  /TL=YES HI=YES RI=YES;\
+			log stop;\
+			cleartrees;\
+			include part2;\
+			exclude part1;\
+			[startingILDpartTWO]\
+			HS START=STEPWISE ADDSEQ=RANDOM NCHUCK=1 CHUCKSCORE=1 NREPS=",HSREPS,";\
+			log start append;\
+			PSCORES  1  /TL=YES HI=YES RI=YES;\
+			cleartrees;\
+			include  all;\
+			log stop;"),append=T)
+			}}
+	
+		#####################################################
+		#NOW ADD NOISE SEQUENTIALLY	
+		
+		
+		
+		#make a copy of the test matrix "test2"
+		test2.noisy<-test2	
+		charvect<-1:nchar2
+		shufflistp2<-sample(nchar2) # shuffled vector of characters Ð nchar2
+		lshuff<-length(shufflistp2)
+		
+		x<-rep(1:nincr,each=ceiling(nchar2/(nincr)))[1:nchar2]
+		propnoise<-cumsum(table(x))/nchar2
+		
+		for(chsh in 1:nincr){ # increasing noise loop 
+			write(file=paupfile,paste("[***CHSH = ",chsh," ***]") , append=T)
+			
+			cols2shuff<-shufflistp2[x==chsh]
+			write(file=paupfile,paste("[***COLS SHUFFLED = ",paste(cols2shuff,sep="",collapse=", ")," ***]") , append=T)
+			write(file=paupfile,paste("[***NUMBER SHUFFLED = ",length(x[x<=chsh])," ***]") , append=T)
+			
+			if(length(cols2shuff)==1){test2.noisy[,cols2shuff]<-sample(test2.noisy[,cols2shuff])}else{
+			#takes the "chsh"th column in test2.noisy and replaces it with a shuffled version of it
+			test2.noisy[,cols2shuff]<-apply(test2.noisy[,cols2shuff],2,sample)}
+			
+			madenoisy<-cbind(test1,test2.noisy)
+			madenoisy<-rbind(c(test2.zerorow,test2.zerorow),madenoisy)
+			madenoisynames<-cbind(taxnames,madenoisy)
+			tot.chars2<-dim(madenoisy)[2]
+			
+			write(file=paupfile,paste(
+			"BEGIN DATA;\
+			DIMENSIONS NCHAR=",tot.chars2," NTAX=",ntax,
+			";\n
+			FORMAT SYMBOLS=\"0 1\";\n\n
+			MATRIX"), append=T)
+			
+			#####555################################################
+			write.table(file=paupfile,madenoisynames, col.names=F, row.names=F, quote=FALSE,  sep="\t",  append=T)
+			#####################################################
+			write(file=helpfile,paste( pseudorepnumber,"0",chsh,"1",propnoise[chsh]),append=T)
+			write(file=helpfile,paste( pseudorepnumber,"0",chsh,"2",propnoise[chsh]),append=T)
+			
+			write(file=paupfile,paste(";\
+			ENDBLOCK;"), append=T)
+			
+			write(file=paupfile,paste("BEGIN PAUP;\
+			log stop;\
+			include all;\
+			charset part1=1-",nchar1,"; charset part2=",nchar1+1,"-",tot.chars2,";
+			Exclude part2;\
+			HS START=STEPWISE ADDSEQ=RANDOM NCHUCK=1 CHUCKSCORE=1 NREPS=",HSREPS,";
+			[ORIGINALpartitionONE]\
+			Log start append;\
+			PSCORES 1 /TL=YES RI=YES HI=YES;\
+			log stop;\
+			cleartrees;\
+			include part2;\
+			exclude part1;\
+			HS START=STEPWISE ADDSEQ=RANDOM NCHUCK=1 CHUCKSCORE=1 NREPS=",HSREPS,";\
+			[ORIGINALpartitionTWO]\
+			Log start append;\
+			PSCORES 1 /TL=YES RI=YES HI=YES;\
+			log stop;\
+			cleartrees;\
+			include all;"),append=T)#calculates trees for the two  partitions
+			
+			
+			
+			
+			
+			
+			if(numildreps<1){write(file=paupfile,paste("[***NO ILD TEST HAS BEEN CARRIED OUT***]"), append=T)}else{
+			for(ildrep in 1: numildreps){ #now need to create lists of characters for part1 and part2
+				write(file=paupfile,paste("[***ildrep = ",ildrep," ***]"), append=T)
+				
+				#shuffle the characters
+				shufflist<-sample(charlist)
+				
+				#create the character partitions
+				part1<-part1<-shufflist[1:nchar1]
+				part2<-shufflist[(nchar1+1):(nchar1+nchar2)]
+								
+				write(file=paupfile,"[***********STARTING ILD REPLICATE] " , append=T)
+				
+				write(file=helpfile,paste( pseudorepnumber,ildrep,chsh,"1",propnoise[chsh]),append=T)
+				write(file=helpfile,paste( pseudorepnumber,ildrep,chsh,"2",propnoise[chsh]),append=T)
+				
+				write(file=paupfile,paste("charset part1="),append=T)
+				write(file=paupfile,part1,append=T)
+				write(file=paupfile,paste("; charset part2="),append=T)
+				write(file=paupfile,part2,append=T)
+				write(file=paupfile,paste("
+				;\
+				[startingILDpartONE]\
+				include all;\
+				Exclude part2;\
+				HS START=STEPWISE  ADDSEQ=RANDOM  NCHUCK=1  CHUCKSCORE=1  NREPS=25;\
+				log start append;\
+				PSCORES 1  /TL=YES HI=YES RI=YES;\
+				log stop;\
+				cleartrees;\
+				include part2;\
+				exclude part1;\
+				[startingILDpartTWO]\
+				HS START=STEPWISE ADDSEQ=RANDOM NCHUCK=1 CHUCKSCORE=1 NREPS=25;\
+				log start append;\
+				PSCORES  1  /TL=YES HI=YES RI=YES;\
+				cleartrees;\
+				include  all;\
+				log stop;"),append=T)
+				} }
+			
+			
+			} # ends noise loop
+		} # should be the psuudoreplicates loop
+	
+	}
+
+##Implementing the function...
+setwd("/Users/orj/Documents/Wasps/ILD_test/ILD_test_program/Simulation_files/Type_6_noise/32taxa/")
+
+genNex.replace("test.tree1", "test.tree1", numpseudo=5,nincr=10,HSREPS=100,numildreps=20,cong="TEST")
+genNex.replace("test.tree2", "test.tree2", numpseudo=5,nincr=10,HSREPS=100,numildreps=20,cong="TEST")
+
+incpairs<-cbind(seq(1,29,2),seq(2,30,2))
+
+for (i in 1:15){
+path1<-paste("r32tax",incpairs[i,1],sep="")
+path2<-paste("r32tax",incpairs[i,2],sep="")
+
+genNex.replace(path1, path2, numpseudo=5,nincr=10,HSREPS=100,numildreps=20,cong="INC")}
+
+congpairs<-sample(1:30)
+for (i in 1:15){
+path1<-paste("r32tax",congpairs[i],sep="")
+path2<-paste("r32tax",congpairs[i],sep="")
+
+genNex.replace(path1, path2, numpseudo=5,nincr=10,HSREPS=100,numildreps=20,cong="CON")}
+
+#for the linearisation
+genNex.replace(path1, path2, numpseudo=5,nincr=10,HSREPS=100,numildreps=0,cong="INC")
+
+
+
+
+incpairs<-matrix(data=NA,nrow=15,ncol=2)
+incpairs[,1]<-seq(1,29,2)
+incpairs[,2]<-seq(2,30,2)
+
+for (i in 1:15){
+path1<-paste("r32tax",incpairs[i,1],sep="")
+path2<-paste("r32tax",incpairs[i,2],sep="")
+
+genNex.replace(path1, path2, numpseudo=5,nincr=10,HSREPS=100,numildreps=20,cong="INC")}

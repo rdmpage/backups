@@ -1,0 +1,596 @@
+#This code accompanies the paper Quicke, Jones & Epstein (2007) Correcting the problem of false incongruence due to noise imbalance in the incongruence length difference (ILD) test
+#Systematic Biology, Volume 56, Issue 3 May 2007 , pages 496 - 503
+#The code was written by Owen R. Jones (owen.jones@imperial.ac.uk)
+#
+#
+#This code is for taking the PAUP outputs and parsing them to extract length and 1-RI information and then to analyse and plot the resutls as described in the accompanying paper.
+#In this case the code is intended for parsing and plotting the results for replacement noise.
+
+setwd("/Users/orj/Documents/ILD Test MS/Programming/Simulation_files/Type_6_noise/32taxa/Paup Outputs/")
+
+library(plotrix)
+
+inputlistCON<-list.files(pattern="OUT4_!outputlog4_6__CON")
+inputlistINC<-list.files(pattern="OUT4_!outputlog4_6__INC")
+
+#INCONGRUENT
+
+alldataINC<-NULL
+for (n in 1:15){
+		path<-inputlistINC[n]
+	x1<-read.table(path,header=TRUE)
+	
+	xmax<-subset(x1,pseudorep==999)
+	x<-subset(x1,pseudorep!=999)
+	if(min(x$noiselev)==0){x$noiselev<-x$noiselev+1}else{}
+	
+	nnoise<-length(unique(x$noiselev))
+	noiselevs<-unique(x$noiselev)
+	pseudoreps<-unique(x$pseudorep)
+	numpseudo<-length(pseudoreps)
+	
+	##################################################################
+	#calculate the standardised lengths and 1-RI
+	
+	#standardise part 1
+	xnoisy1<-subset(xmax,part==1)
+			meanmaxnoisyL1<-mean(xnoisy1$lengths)
+			meanmaxnoisyOMRI1<-mean(xnoisy1$OneMinusRI)
+		
+	x$standardisedlength[x$part==1]<-(x$lengths[x$part==1]-min(x$lengths[x$part==1]))/(meanmaxnoisyL1-min(x$lengths[x$part==1]))
+	x$standardOneMinusRI[x$part==1]<-(x$OneMinusRI[x$part==1]-0)/(meanmaxnoisyOMRI1-0)
+	x$standardisedlength[x$part==1][is.nan(x$standardisedlength[x$part==1])==TRUE]<-0
+	x$standardOneMinusRI[x$part==1][is.nan(x$standardOneMinusRI[x$part==1])==TRUE]<-0
+	
+	#standardise part 2
+	xnoisy2<-subset(xmax,part==2)
+	meanmaxnoisyL2<-mean(xnoisy2$lengths)
+	meanmaxnoisyOMRI2<-mean(xnoisy2$OneMinusRI)
+		
+	x$standardisedlength[x$part==2]<-(x$lengths[x$part==2]-min(x$lengths[x$part==2]))/(meanmaxnoisyL2-min(x$lengths[x$part==2]))
+	
+	x$standardOneMinusRI[x$part==2]<-(x$OneMinusRI[x$part==2]-0)/(meanmaxnoisyOMRI2-0)
+	
+	x$standardisedlength[x$part==2][is.nan(x$standardisedlength[x$part==2])==TRUE]<-0
+	x$standardOneMinusRI[x$part==2][is.nan(x$standardOneMinusRI[x$part==2])==TRUE]<-0
+	
+	x$asinOneMinusRI[x$standardOneMinusRI<=1]<-asin(x$standardOneMinusRI[x$standardOneMinusRI<=1])
+	x$asinOneMinusRI[x$standardOneMinusRI>1]<-asin(1)
+	
+	x$asinstandardisedlength[x$standardisedlength<=1]<-asin(x$standardisedlength[x$standardisedlength<=1])
+	x$asinstandardisedlength[x$standardisedlength>1]<-asin(1)
+	
+	
+	##################################################################
+	
+	n.ild<-NULL
+	sumild.L<-NULL
+	sumild.asL<-NULL
+	sumild.OMRI<-NULL
+	sumild.asOMRI<-NULL
+	
+	for (pseudo in 1:numpseudo){
+		for (i in 1:nnoise){ 
+		x.orig<-subset(x,noiselev==noiselevs[i]&pseudorep==pseudoreps[pseudo]&ildrep==0)
+		x.test<-subset(x,noiselev==noiselevs[i]&pseudorep==pseudoreps[pseudo]&ildrep>0)
+			
+	p1chars<-x.orig$mintree[x.orig$part==1]
+	p2chars<-x.orig$mintree[x.orig$part==2]
+	totchars<-p1chars+p2chars
+	
+			
+#LENGTH (L)
+	L1orig<-x.orig$lengths[x.orig$part==1]
+	L2orig<-x.orig$lengths[x.orig$part==2]
+	
+	#weighted sum of the original lengths
+	sum.orig.L<-L1orig*(p1chars/(totchars)) + L2orig*(p2chars/(totchars))
+	
+	#Test
+	L1<-x.test$lengths[x.test$part==1]
+	L2<-x.test$lengths[x.test$part==2]
+	
+	#weighted sums of lengths for parts 1+2
+	sum.L<-L1*(p1chars/(totchars)) + L2*(p2chars/(totchars))
+
+	L.larger<-ifelse(sum.L>sum.orig.L,1,0) 
+	sumild.L<-c(sumild.L,sum(L.larger))
+	
+	n.ild<-c(n.ild,length(L.larger)) #only need this once
+	
+	
+#ARCSINE STANDARDISED LENGTH (asL) ILD test
+	asL1orig<-x.orig$asinstandardisedlength[x.orig$part==1]
+	asL2orig<-x.orig$asinstandardisedlength[x.orig$part==2]
+	
+	#weighted sum of the original lengths
+	sum.orig.asL<-asL1orig*(p1chars/(totchars)) + asL2orig*(p2chars/(totchars))
+	
+	#Test
+	asL1<-x.test$asinstandardisedlength[x.test$part==1]
+	asL2<-x.test$asinstandardisedlength[x.test$part==2]
+	
+	#weighted sums of lengths for parts 1+2
+	sum.asL<-asL1*(p1chars/(totchars)) + asL2*(p2chars/(totchars))
+
+	asL.larger<-ifelse(sum.asL>sum.orig.asL,1,0) 
+	sumild.asL<-c(sumild.asL,sum(asL.larger))	
+	
+	
+	
+#OMRI: One minus RI ILD test
+	OMRI1orig<-x.orig$OneMinusRI[x.orig$part==1]
+	OMRI2orig<-x.orig$OneMinusRI[x.orig$part==2]
+	
+	#weighted sum of the original lengths
+	sum.orig.OMRI<-OMRI1orig*(p1chars/(totchars)) + OMRI2orig*(p2chars/(totchars))
+	
+	#Test
+	OMRI1<-x.test$OneMinusRI[x.test$part==1]
+	OMRI2<-x.test$OneMinusRI[x.test$part==2]
+	
+	#weighted sums of lengths for parts 1+2
+	sum.OMRI<-OMRI1*(p1chars/(totchars)) + OMRI2*(p2chars/(totchars))
+
+	OMRI.larger<-ifelse(sum.OMRI>sum.orig.OMRI,1,0) 
+	sumild.OMRI<-c(sumild.OMRI,sum(OMRI.larger))
+	
+	
+	
+#ARCSINE One minus RI ILD test
+	asOMRI1orig<-x.orig$asinOneMinusRI[x.orig$part==1]
+	asOMRI2orig<-x.orig$asinOneMinusRI[x.orig$part==2]
+	
+	#weighted sum of the original lengths
+	sum.orig.asOMRI<-asOMRI1orig*(p1chars/(totchars)) + asOMRI2orig*(p2chars/(totchars))
+	
+	#Test
+	asOMRI1<-x.test$asinOneMinusRI[x.test$part==1]
+	asOMRI2<-x.test$asinOneMinusRI[x.test$part==2]
+	
+	#weighted sums of lengths for parts 1+2
+	sum.asOMRI<-asOMRI1*(p1chars/(totchars)) + asOMRI2*(p2chars/(totchars))
+
+	asOMRI.larger<-ifelse(sum.asOMRI>sum.orig.asOMRI,1,0) 
+	sumild.asOMRI<-c(sumild.asOMRI,sum(asOMRI.larger))
+			}}
+	
+	
+	b<-data.frame(noise=rep(unique(x$propnoise),numpseudo),pseudo=rep(1:numpseudo,each=nnoise),n.ild,sumild.L,sumild.asL,sumild.OMRI,sumild.asOMRI)
+	alldataINC<-rbind(alldataINC,b)
+	}
+
+
+
+#Calculate proportions and P-values
+#p-values
+alldataINC$pvalue.L<-1-(alldataINC$sumild.L/alldataINC$n.ild)
+alldataINC$pvalue.asL<-1-(alldataINC$sumild.asL/alldataINC$n.ild)
+
+alldataINC$pvalue.OMRI<-1-(alldataINC$sumild.OMRI/alldataINC$n.ild)
+alldataINC$pvalue.asOMRI<-1-(alldataINC$sumild.asOMRI/alldataINC$n.ild)
+
+#significance?
+alldataINC$sig.L<-as.factor(ifelse(alldataINC$pvalue.L<0.05,"Y","N"))
+alldataINC$sig.asL<-as.factor(ifelse(alldataINC$pvalue.asL<0.05,"Y","N"))
+
+alldataINC$sig.OMRI<-as.factor(ifelse(alldataINC$pvalue.OMRI<0.05,"Y","N"))
+alldataINC$sig.asOMRI<-as.factor(ifelse(alldataINC$pvalue.asOMRI<0.05,"Y","N"))
+
+#rescale
+alldataINC$pvalue.L<-rescale(alldataINC$pvalue.L,c(0.05,1))
+alldataINC$pvalue.asL<-rescale(alldataINC$pvalue.asL,c(0.05,1))
+
+alldataINC$pvalue.OMRI<-rescale(alldataINC$pvalue.OMRI,c(0.05,1))
+alldataINC$pvalue.asOMRI<-rescale(alldataINC$pvalue.asOMRI,c(0.05,1))
+
+
+
+#Proportions significant by noise
+
+a<-table(alldataINC$noise,alldataINC$sig.L)
+a
+if(colnames(a)[1]=="Y"&length(colnames(a))==1){psig.L<-rep(1,length(rownames(a)))}else{
+psig.L<-a[,2]/(a[,1]+a[,2])}
+
+a<-table(alldataINC$noise,alldataINC$sig.asL)
+a
+if(colnames(a)[1]=="Y"&length(colnames(a))==1){psig.asL<-rep(1,length(rownames(a)))}else{
+psig.asL<-a[,2]/(a[,1]+a[,2])}
+
+a<-table(alldataINC$noise,alldataINC$sig.OMRI)
+a
+if(colnames(a)[1]=="Y"&length(colnames(a))==1){psig.OMRI<-rep(1,length(rownames(a)))}else{
+psig.OMRI<-a[,2]/(a[,1]+a[,2])}
+
+a<-table(alldataINC$noise,alldataINC$sig.asOMRI)
+a
+if(colnames(a)[1]=="Y"&length(colnames(a))==1){psig.asOMRI<-rep(1,length(rownames(a)))}else{
+psig.asOMRI<-a[,2]/(a[,1]+a[,2])}
+
+pval.L<-as.vector(tapply(alldataINC$pvalue.L,alldataINC$noise,mean))
+pval.asL<-as.vector(tapply(alldataINC$pvalue.asL,alldataINC$noise,mean))
+
+pval.OMRI<-as.vector(tapply(alldataINC$pvalue.OMRI,alldataINC$noise,mean))
+pval.asOMRI<-as.vector(tapply(alldataINC$pvalue.asOMRI,alldataINC$noise,mean))
+
+INCONGRUENTsummary<-data.frame(noise=unique(alldataINC$noise),psig.L,pval.L,psig.asL,pval.asL,psig.OMRI,pval.OMRI,psig.asOMRI,pval.asOMRI)
+INCONGRUENTsummary$pval.L<-0.05
+
+
+
+#CONGRUENT
+
+alldataCON<-NULL
+
+alldataCON<-NULL
+for (n in 1:15){
+	
+	path<-inputlistCON[n]
+	x1<-read.table(path,header=TRUE)
+	
+	xmax<-subset(x1,pseudorep==999)
+	x<-subset(x1,pseudorep!=999)
+	if(min(x$noiselev)==0){x$noiselev<-x$noiselev+1}else{}
+	
+	nnoise<-length(unique(x$noiselev))
+	noiselevs<-unique(x$noiselev)
+	pseudoreps<-unique(x$pseudorep)
+	numpseudo<-length(pseudoreps)
+	
+	##################################################################
+	#calculate the standardised lengths and 1-RI
+	
+	#standardise part 1
+	xnoisy1<-subset(xmax,part==1)
+			meanmaxnoisyL1<-mean(xnoisy1$lengths)
+			meanmaxnoisyOMRI1<-mean(xnoisy1$OneMinusRI)
+		
+	x$standardisedlength[x$part==1]<-(x$lengths[x$part==1]-min(x$lengths[x$part==1]))/(meanmaxnoisyL1-min(x$lengths[x$part==1]))
+	x$standardOneMinusRI[x$part==1]<-(x$OneMinusRI[x$part==1]-0)/(meanmaxnoisyOMRI1-0)
+	x$standardisedlength[x$part==1][is.nan(x$standardisedlength[x$part==1])==TRUE]<-0
+	x$standardOneMinusRI[x$part==1][is.nan(x$standardOneMinusRI[x$part==1])==TRUE]<-0
+	
+	#standardise part 2
+	xnoisy2<-subset(xmax,part==2)
+	meanmaxnoisyL2<-mean(xnoisy2$lengths)
+	meanmaxnoisyOMRI2<-mean(xnoisy2$OneMinusRI)
+		
+	x$standardisedlength[x$part==2]<-(x$lengths[x$part==2]-min(x$lengths[x$part==2]))/(meanmaxnoisyL2-min(x$lengths[x$part==2]))
+	
+	x$standardOneMinusRI[x$part==2]<-(x$OneMinusRI[x$part==2]-0)/(meanmaxnoisyOMRI2-0)
+	
+	x$standardisedlength[x$part==2][is.nan(x$standardisedlength[x$part==2])==TRUE]<-0
+	x$standardOneMinusRI[x$part==2][is.nan(x$standardOneMinusRI[x$part==2])==TRUE]<-0
+	
+	x$asinOneMinusRI[x$standardOneMinusRI<=1]<-asin(x$standardOneMinusRI[x$standardOneMinusRI<=1])
+	x$asinOneMinusRI[x$standardOneMinusRI>1]<-asin(1)
+	
+	x$asinstandardisedlength[x$standardisedlength<=1]<-asin(x$standardisedlength[x$standardisedlength<=1])
+	x$asinstandardisedlength[x$standardisedlength>1]<-asin(1)
+	
+	
+	#write.table(x,file=(paste("SUMMARYDATA",path)),row.names=FALSE)
+	#write.table(xmax,file=(paste("SUMMARYDATA_MAXNOISE",path)),row.names=FALSE)
+	
+	##################################################################
+	
+	n.ild<-NULL
+	sumild.L<-NULL
+	sumild.asL<-NULL
+	sumild.OMRI<-NULL
+	sumild.asOMRI<-NULL
+	
+	for (pseudo in 1:numpseudo){
+		for (i in 1:nnoise){ 
+		x.orig<-subset(x,noiselev==noiselevs[i]&pseudorep==pseudoreps[pseudo]&ildrep==0)
+		x.test<-subset(x,noiselev==noiselevs[i]&pseudorep==pseudoreps[pseudo]&ildrep>0)
+			
+	p1chars<-x.orig$mintree[x.orig$part==1]
+	p2chars<-x.orig$mintree[x.orig$part==2]
+	totchars<-p1chars+p2chars
+	
+			
+#LENGTH (L)
+	L1orig<-x.orig$lengths[x.orig$part==1]
+	L2orig<-x.orig$lengths[x.orig$part==2]
+	
+	#weighted sum of the original lengths
+	sum.orig.L<-L1orig*(p1chars/(totchars)) + L2orig*(p2chars/(totchars))
+	
+	#Test
+	L1<-x.test$lengths[x.test$part==1]
+	L2<-x.test$lengths[x.test$part==2]
+	
+	#weighted sums of lengths for parts 1+2
+	sum.L<-L1*(p1chars/(totchars)) + L2*(p2chars/(totchars))
+
+	L.larger<-ifelse(sum.L>sum.orig.L,1,0) 
+	sumild.L<-c(sumild.L,sum(L.larger))
+	
+	n.ild<-c(n.ild,length(L.larger)) #only need this once
+	
+	
+#ARCSINE STANDARDISED LENGTH (asL) ILD test
+	asL1orig<-x.orig$asinstandardisedlength[x.orig$part==1]
+	asL2orig<-x.orig$asinstandardisedlength[x.orig$part==2]
+	
+	#weighted sum of the original lengths
+	sum.orig.asL<-asL1orig*(p1chars/(totchars)) + asL2orig*(p2chars/(totchars))
+	
+	#Test
+	asL1<-x.test$asinstandardisedlength[x.test$part==1]
+	asL2<-x.test$asinstandardisedlength[x.test$part==2]
+	
+	#weighted sums of lengths for parts 1+2
+	sum.asL<-asL1*(p1chars/(totchars)) + asL2*(p2chars/(totchars))
+
+	asL.larger<-ifelse(sum.asL>sum.orig.asL,1,0) 
+	sumild.asL<-c(sumild.asL,sum(asL.larger))	
+	
+	
+	
+#OMRI: One minus RI ILD test
+	OMRI1orig<-x.orig$OneMinusRI[x.orig$part==1]
+	OMRI2orig<-x.orig$OneMinusRI[x.orig$part==2]
+	
+	#weighted sum of the original lengths
+	sum.orig.OMRI<-OMRI1orig*(p1chars/(totchars)) + OMRI2orig*(p2chars/(totchars))
+	
+	#Test
+	OMRI1<-x.test$OneMinusRI[x.test$part==1]
+	OMRI2<-x.test$OneMinusRI[x.test$part==2]
+	
+	#weighted sums of lengths for parts 1+2
+	sum.OMRI<-OMRI1*(p1chars/(totchars)) + OMRI2*(p2chars/(totchars))
+
+	OMRI.larger<-ifelse(sum.OMRI>sum.orig.OMRI,1,0) 
+	sumild.OMRI<-c(sumild.OMRI,sum(OMRI.larger))
+	
+	
+	
+#ARCSINE One minus RI ILD test
+	asOMRI1orig<-x.orig$asinOneMinusRI[x.orig$part==1]
+	asOMRI2orig<-x.orig$asinOneMinusRI[x.orig$part==2]
+	
+	#weighted sum of the original lengths
+	sum.orig.asOMRI<-asOMRI1orig*(p1chars/(totchars)) + asOMRI2orig*(p2chars/(totchars))
+	
+	#Test
+	asOMRI1<-x.test$asinOneMinusRI[x.test$part==1]
+	asOMRI2<-x.test$asinOneMinusRI[x.test$part==2]
+	
+	#weighted sums of lengths for parts 1+2
+	sum.asOMRI<-asOMRI1*(p1chars/(totchars)) + asOMRI2*(p2chars/(totchars))
+
+	asOMRI.larger<-ifelse(sum.asOMRI>sum.orig.asOMRI,1,0) 
+	sumild.asOMRI<-c(sumild.asOMRI,sum(asOMRI.larger))
+			}}
+	
+	
+	b<-data.frame(noise=rep(unique(x$propnoise),numpseudo),pseudo=rep(1:numpseudo,each=nnoise),n.ild,sumild.L,sumild.asL,sumild.OMRI,sumild.asOMRI)
+	alldataCON<-rbind(alldataCON,b)
+	}
+
+
+
+#Calculate proportions and P-values
+#p-values
+alldataCON$pvalue.L<-1-(alldataCON$sumild.L/alldataCON$n.ild)
+alldataCON$pvalue.asL<-1-(alldataCON$sumild.asL/alldataCON$n.ild)
+
+alldataCON$pvalue.OMRI<-1-(alldataCON$sumild.OMRI/alldataCON$n.ild)
+alldataCON$pvalue.asOMRI<-1-(alldataCON$sumild.asOMRI/alldataCON$n.ild)
+
+#significance?
+alldataCON$sig.L<-as.factor(ifelse(alldataCON$pvalue.L<0.05,"Y","N"))
+alldataCON$sig.asL<-as.factor(ifelse(alldataCON$pvalue.asL<0.05,"Y","N"))
+
+alldataCON$sig.OMRI<-as.factor(ifelse(alldataCON$pvalue.OMRI<0.05,"Y","N"))
+alldataCON$sig.asOMRI<-as.factor(ifelse(alldataCON$pvalue.asOMRI<0.05,"Y","N"))
+
+#rescale
+alldataCON$pvalue.L<-rescale(alldataCON$pvalue.L,c(0.05,1))
+alldataCON$pvalue.asL<-rescale(alldataCON$pvalue.asL,c(0.05,1))
+
+alldataCON$pvalue.OMRI<-rescale(alldataCON$pvalue.OMRI,c(0.05,1))
+alldataCON$pvalue.asOMRI<-rescale(alldataCON$pvalue.asOMRI,c(0.05,1))
+
+
+
+#Proportions significant by noise
+
+a<-table(alldataCON$noise,alldataCON$sig.L)
+a
+if(colnames(a)[1]=="Y"&length(colnames(a))==1){psig.L<-rep(1,length(rownames(a)))}else{
+psig.L<-a[,2]/(a[,1]+a[,2])}
+
+a<-table(alldataCON$noise,alldataCON$sig.asL)
+a
+if(colnames(a)[1]=="Y"&length(colnames(a))==1){psig.asL<-rep(1,length(rownames(a)))}else{
+psig.asL<-a[,2]/(a[,1]+a[,2])}
+
+a<-table(alldataCON$noise,alldataCON$sig.OMRI)
+a
+if(colnames(a)[1]=="Y"&length(colnames(a))==1){psig.OMRI<-rep(1,length(rownames(a)))}else{
+psig.OMRI<-a[,2]/(a[,1]+a[,2])}
+
+a<-table(alldataCON$noise,alldataCON$sig.asOMRI)
+a
+if(colnames(a)[1]=="Y"&length(colnames(a))==1){psig.asOMRI<-rep(1,length(rownames(a)))}else{
+psig.asOMRI<-a[,2]/(a[,1]+a[,2])}
+
+pval.L<-as.vector(tapply(alldataCON$pvalue.L,alldataCON$noise,mean))
+pval.asL<-as.vector(tapply(alldataCON$pvalue.asL,alldataCON$noise,mean))
+
+pval.OMRI<-as.vector(tapply(alldataCON$pvalue.OMRI,alldataCON$noise,mean))
+pval.asOMRI<-as.vector(tapply(alldataCON$pvalue.asOMRI,alldataCON$noise,mean))
+
+CONGRUENTsummary<-data.frame(noise=unique(alldataCON$noise),psig.L,pval.L,psig.asL,pval.asL,psig.OMRI,pval.OMRI,psig.asOMRI,pval.asOMRI)
+
+CONGRUENTsummary
+
+
+
+
+###################################################
+#now do some plots based upon this
+###################################################
+noisevals<-CONGRUENTsummary$noise
+quartz(h=8,w=16)
+par(mfrow=c(1,2))
+#CONGRUENT
+ par(mar=(c(5, 4, 4, 4) + 0.1))
+ plot(c(0,1),c(0,1),xlab="Proportion noisy characters",ylab="Proportion significant",type="n")
+ axis(4)
+ mtext("p-value",4,2)
+ title("Length: Congruent")
+
+#P-VALUES
+
+for (i in 1:length(pval.L)){
+lines(c(noisevals[i],noisevals[i]),summary(alldataCON$pvalue.L[alldataCON$noise==noisevals[i]])[c(2,5)],col=colours()[205])
+}
+
+points(CONGRUENTsummary$noise,CONGRUENTsummary$pval.L,col="white",pch=17,type="b",cex=2)
+points(CONGRUENTsummary$noise,CONGRUENTsummary$pval.L,col=colours()[205],pch=2,type="b",cex=2)
+
+#arcsine transformed standardised length
+points(CONGRUENTsummary$noise,CONGRUENTsummary$pval.asL,col=colours()[205],pch=17,type="b",cex=2)
+
+for (i in 1:length(pval.asL)){
+lines(c(noisevals[i],noisevals[i]),summary(alldataCON$pvalue.asL[alldataCON$noise==noisevals[i]])[c(2,5)],col=colours()[205])
+}
+
+#PROPORTIONS
+points(CONGRUENTsummary$noise,CONGRUENTsummary$psig.L,col="white",pch=16,type="b",cex=2)
+points(CONGRUENTsummary$noise,CONGRUENTsummary$psig.L,col="black",pch=1,type="b",cex=2)
+
+#arcsine transformed standardised length
+
+points(CONGRUENTsummary$noise,CONGRUENTsummary$psig.asL,col="black",pch=16,type="b",cex=2)
+
+
+
+
+#INCONGRUENT
+ par(mar=(c(5, 4, 4, 4) + 0.1))
+ plot(c(0,1),c(0,1),xlab="Proportion noisy characters",ylab="Proportion significant",type="n")
+ axis(4)
+ mtext("p-value",4,2)
+ title("Length: Incongruent")
+
+#P-VALUES
+
+for (i in 1:length(pval.L)){
+lines(c(noisevals[i],noisevals[i]),summary(alldataINC$pvalue.L[alldataCON$noise==noisevals[i]])[c(2,5)],col=colours()[205])
+}
+
+points(INCONGRUENTsummary$noise,INCONGRUENTsummary$pval.L,col="white",pch=17,type="b",cex=2)
+points(INCONGRUENTsummary$noise,INCONGRUENTsummary$pval.L,col=colours()[205],pch=2,type="b",cex=2)
+
+#arcsine transformed standardised length
+points(INCONGRUENTsummary$noise,INCONGRUENTsummary$pval.asL,col=colours()[205],pch=17,type="b",cex=2)
+
+for (i in 1:length(pval.asL)){
+lines(c(noisevals[i],noisevals[i]),summary(alldataINC$pvalue.asL[alldataCON$noise==noisevals[i]])[c(2,5)],col=colours()[205])
+}
+
+#PROPORTIONS
+points(INCONGRUENTsummary$noise,INCONGRUENTsummary$psig.L,col="white",pch=16,type="b",cex=2)
+points(INCONGRUENTsummary$noise,INCONGRUENTsummary$psig.L,col="black",pch=1,type="b",cex=2)
+
+#arcsine transformed standardised length
+
+points(INCONGRUENTsummary$noise,INCONGRUENTsummary$psig.asL,col="black",pch=16,type="b",cex=2)
+
+Lprop: black circle open =1
+L-pvalue: grey triangke open =2
+
+asLprop: black circle filled 16
+asL-pvalue:grey triangke filled = 17
+
+
+
+legend(0,0.8,c("Length: Proportion significant", "Length: P-value", "Arcsine Std. Length: Proportion significant", "Arcsine Std. Length: P-value"),pch=c(1,2,16,17),col=c("black",colours()[205],"black",colours()[205]),bty="n")
+dev.copy2eps(file="Figure_2_ILD_replacement_length.eps")
+
+
+################################################################################
+
+noisevals<-CONGRUENTsummary$noise
+quartz(h=8,w=16)
+par(mfrow=c(1,2))
+#CONGRUENT
+ par(mar=(c(5, 4, 4, 4) + 0.1))
+ plot(c(0,1),c(0,1),xlab="Proportion noisy characters",ylab="Proportion significant",type="n")
+ axis(4)
+ mtext("p-value",4,2)
+ title("1-RI: Congruent")
+
+#P-VALUES
+
+for (i in 1:length(pval.OMRI)){
+lines(c(noisevals[i],noisevals[i]),summary(alldataCON$pvalue.OMRI[alldataCON$noise==noisevals[i]])[c(2,5)],col=colours()[205])
+}
+
+points(CONGRUENTsummary$noise,CONGRUENTsummary$pval.OMRI,col="white",pch=17,type="b",cex=2)
+points(CONGRUENTsummary$noise,CONGRUENTsummary$pval.OMRI,col=colours()[205],pch=2,type="b",cex=2)
+
+#arcsine transformed standardised length
+points(CONGRUENTsummary$noise,CONGRUENTsummary$pval.asOMRI,col=colours()[205],pch=17,type="b",cex=2)
+
+for (i in 1:length(pval.asOMRI)){
+lines(c(noisevals[i],noisevals[i]),summary(alldataCON$pvalue.asOMRI[alldataCON$noise==noisevals[i]])[c(2,5)],col=colours()[205])
+}
+
+#PROPORTIONS
+points(CONGRUENTsummary$noise,CONGRUENTsummary$psig.OMRI,col="white",pch=16,type="b",cex=2)
+points(CONGRUENTsummary$noise,CONGRUENTsummary$psig.OMRI,col="black",pch=1,type="b",cex=2)
+
+#arcsine transformed standardised length
+
+points(CONGRUENTsummary$noise,CONGRUENTsummary$psig.asOMRI,col="black",pch=16,type="b",cex=2)
+
+
+
+#INCONGRUENT
+ par(mar=(c(5, 4, 4, 4) + 0.1))
+ plot(c(0,1),c(0,1),xlab="Proportion noisy characters",ylab="Proportion significant",type="n")
+ axis(4)
+ mtext("p-value",4,2)
+ title("1-RI: Incongruent")
+
+#P-VALUES
+
+for (i in 1:length(pval.OMRI)){
+lines(c(noisevals[i],noisevals[i]),summary(alldataINC$pvalue.OMRI[alldataCON$noise==noisevals[i]])[c(2,5)],col=colours()[205])
+}
+
+points(INCONGRUENTsummary$noise,INCONGRUENTsummary$pval.OMRI,col="white",pch=17,type="b",cex=2)
+points(INCONGRUENTsummary$noise,INCONGRUENTsummary$pval.OMRI,col=colours()[205],pch=2,type="b",cex=2)
+
+#arcsine transformed standardised length
+points(INCONGRUENTsummary$noise,INCONGRUENTsummary$pval.asOMRI,col=colours()[205],pch=17,type="b",cex=2)
+
+for (i in 1:length(pval.asOMRI)){
+lines(c(noisevals[i],noisevals[i]),summary(alldataINC$pvalue.asOMRI[alldataCON$noise==noisevals[i]])[c(2,5)],col=colours()[205])
+}
+
+#PROPORTIONS
+points(INCONGRUENTsummary$noise,INCONGRUENTsummary$psig.OMRI,col="white",pch=16,type="b",cex=2)
+points(INCONGRUENTsummary$noise,INCONGRUENTsummary$psig.OMRI,col="black",pch=1,type="b",cex=2)
+
+#arcsine transformed standardised length
+
+points(INCONGRUENTsummary$noise,INCONGRUENTsummary$psig.asOMRI,col="black",pch=16,type="b",cex=2)
+
+
+
+
+
+legend(0,0.8,c("1-RI: Proportion significant", "1-RI: P-value", "Arcsine Std. 1-RI: Proportion significant", "Arcsine Std. 1-RI: P-value"),pch=c(1,2,16,17),col=c("black",colours()[205],"black",colours()[205]),bty="n")
+
+dev.copy2eps(file="Figure_3_ILD_replacement_1minusRI.eps")
+
+################################################################################

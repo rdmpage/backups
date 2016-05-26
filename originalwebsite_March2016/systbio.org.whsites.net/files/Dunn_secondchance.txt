@@ -1,0 +1,280 @@
+#!/usr/bin/perl
+
+print "If you see a bunch of errors right after this message, you \n";
+print "probably need to install BioPerl. Go to www.bioperl.org.\n";
+
+use Getopt::Std;
+use Bio::AlignIO;
+use Bio::Align::AlignI;
+use Bio::Seq;
+use strict;
+
+print "Looks like BioPerl is installed.\n";
+
+# parse the options
+my %options;
+getopts('a:f:g:i:o:v:', \%options);
+
+# show all info and quit if there were no options
+if ( %options < 1 ){
+  info();
+  showhelp();
+  exit;
+}
+
+# set defauls
+my $inputfile; # = "input.meg";
+my $sformat = "mega";
+my $guidename; # = "GUIDE"; #The name of the sequence for which the secondary structure is known
+my $guidefile = "guide.dcse";
+my $outputfile = "alignment.dcse";
+my $verbose = 2;	#Flag to control how verbose the display output will be
+
+# load in specified options
+#if ($options{a}) { $inputfile = $options{a};}
+$inputfile = $options{a};
+if ($options{f}) { $sformat = $options{f};}
+#if ($options{g}) { $guidename = $options{g};}
+$guidename = $options{g};
+if ($options{i}) { $guidefile = $options{i};}
+if ($options{o}) { $outputfile = $options{o};}
+if ($options{v}) { $verbose = $options{v};}
+
+
+#Print out some useful info
+if ( $verbose > 0 ) {
+	info();
+}
+print"\nReading alignment from $inputfile, using $guidename as guide\n\n";
+
+#Open the guide file and read the relevent data in DCSE format
+open (GUIDE, $guidefile) or die "Can't open $guidefile";
+
+my $rawguide;	#The string containing the guide sequence and secondary structure info
+my $rawmask;	#The scring that contains the mask with helix names, as read from the file
+my $nextisguide;  #Flag that is triggered when the marker is found, indicating that the next sequence is the guide
+my $nextismask;   #flag that is triggered by the guide, indicating that the next line is the mask
+
+while (my $line = <GUIDE>) {
+	#Assumes that there is only one sequence in the file, and that it is followed by the mask
+	if ( $nextismask ) {
+		$rawmask = $line;
+		chomp $rawmask;
+		$nextismask = 0;
+	}
+
+	if ( $nextisguide ) {
+		$rawguide = $line;
+		chomp $rawguide;
+		$rawguide =~ tr/a-z/A-Z/;	# Change all lowercase letters to uppercase
+		$nextisguide = 0;
+		$nextismask = 1;
+	}
+
+	#if ( $line =~ m/\|/) {$nextisguide = 1; print "setting nexguide to true\n";}
+	if ( $line =~ m/\|/) {$nextisguide = 1;}
+}
+
+
+
+if ( $verbose > 2 ) {
+	print "The raw guide sequence is $rawguide\n\n";
+	print "The raw mask is $rawmask\n\n";
+	}
+
+
+#Open the alignment and get it ready
+
+#Read the alignment form the file
+my $aln = new Bio::AlignIO('-format' => $sformat, '-file'   => $inputfile);
+
+#Get a  Bio::Align::AlignI object that I can actually use
+
+
+my $seqs =$aln->next_aln or die "There was a problem getting the alignemnt from the file";
+
+my @hits=$seqs->each_seq_with_id($guidename);
+
+#make sure there was only one hit, then get it as a scalar
+if ( @hits == 0 ) {die "No sequences named $guidename were found in the alignment.";}
+if ( @hits > 1 ) {die "More than one sequence named $guidename was found in the alignment.";}
+my $guide = $hits[0]; #Has all the attributes of Bio::PrimarySeq
+
+$seqs->uppercase();  #Set all the sequences to uppercase, in case they aren't already
+
+#get the number of sequences in the alignment
+my $numseqs=$seqs->no_sequences();
+
+#get the length of the alignment
+my $alnlength=$seqs->length();
+
+if ( $verbose > 0 ) {
+	print "There are $numseqs taxa in the alignment, which is $alnlength columns long\n\n";
+	}
+
+#Transfer the secondary info from the unaligned guide to a string containing the guide with alignment gaps
+my $alnguide;
+my $alnmask;
+my $maskchunk;
+my $punctuation;	#hold the secondary structure punctuation
+my $guideresidue;
+my $n = 0;  #pointer for $rawguide
+my $pos;	#The expected position of the current residue in $rawguide
+my $already = 1;  #flag to indicate if infor from a given position in $rawguide has been incorporated
+
+if ( substr $guide->seq(), 0, 1 == "-" ) { $already = 1; }
+
+for ( my $column = 1; $column<=$alnlength; $column ++ ) {
+
+	#get the next bp or gap in the aligned guide
+	my $element = substr $guide->seq(), $column-1, 1;
+
+	#if it is a bp, then set a flag indicating that it hasn't been handled yet
+	if ( $element =~ m/C|G|A|T|U/) {
+		$already = 0;
+	}
+
+	#calculate the position of the relevent bp in the analigned DCSE sequence
+	$pos = $n * 2 + 1;
+
+	if ( $already > 0 ){
+		$punctuation = " ";
+		$maskchunk = " -";
+	}
+#	else if ($column == 0){
+#	}
+	else{
+		$maskchunk = substr $rawmask, $pos-1, 2;
+		$punctuation = substr $rawguide, $pos-1, 1;	#get the character preceding the relevent residue in $gdce
+		$guideresidue = substr $rawguide, $pos, 1;
+
+
+		$already = 1;	# Set the $already flag to indicate that this punctuation has been incorporated
+	}
+
+	# check to make sure that the residues are the same
+	$guideresidue == $element or die " The guide sequence is not the same in $inputfile column $column and $guidefile character $pos";
+
+	#Tack the puncluation and bp onto the aligned DCSE sequence
+	$alnguide .= $punctuation.$element;
+	$alnmask .= $maskchunk;
+
+	#index to the next position in the unaligned DCSE guide if the relevant character in the aligned sequence was a bp
+	if ( $element =~ m/C|G|A|T|U/) {
+		$n++;
+	}
+}
+
+#Tack on the last punctuation character (assume that it could only be a ] ), which is not taken care of by the above loop
+$punctuation = substr $rawguide, $pos+1, 1;
+if ($punctuation == "]") {
+	$alnguide .= $punctuation;}
+else {
+	$alnguide .= " ";}
+#initialize the string that will hold the output while it's assembled
+my $output;
+#Write a generic header for the DCSE file
+$output .= "R 0 0\n\n                  10                  20\n . . . . | . . . . | . . . . | . . . . |\n";
+
+#loop through the alignment and expand it out in DCSE format with secondary structure info from $alnguide
+my $j;	#column index
+foreach my $seqobject ( $seqs->each_seq() ) {
+	my $seq = $seqobject->seq();	#get the sequence as a string
+	my $line;
+	for ($j=0; $j < $alnlength; $j++ ) {
+		$line .= substr $alnguide, $j*2, 1;
+		$line .= substr $seq, $j, 1;
+	}
+	$line .= substr $alnguide, $j*2, 1;	#Tack on the last puntuation character
+	$line =~ s/\{(\W+)\}/ $1 /g;	#Get rid of empty brackets (that have only non-word characters), RNAviz hates them
+
+	$line .= "       ".$seqobject->display_id();	#Tack on the id
+	$output .= $line."\n";
+}
+
+#Tack the alignment mask onto the end
+$output .= $alnmask."        Helix numbering\n";
+
+#open the output file, write the data to it, and close it
+open (OUTPUT, ">$outputfile") or die "Can't create/ open $outputfile";
+print OUTPUT $output;
+close (OUTPUT);
+
+sub info {
+print <<EndOfIntro;
+
+secondchance 0.2
+Written by Casey Dunn
+Yale University
+casey dot dunn at yale dot edu
+March 4, 2004
+
+---------------------------------------------
+Copyright (C) 2004 Casey Dunn
+
+This program is free software;
+you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation;
+either version 2 of the License, or (at your option) any later version.
+---------------------------------------------
+
+A perl script for applying secondary structure
+information from one sequence to all the sequences
+in an alignment containing that sequence.
+
+Run the script without any arguments to see
+more information about it.
+
+Usage:
+
+      Description                               Default
+ -a   Name of the alignment file
+ -g   Name of guide taxon in the alignment
+[-f]  Format of the alignment file             mega
+[-i]  The name of the guide file (DCSE format) guide.dcse
+[-o]  Output file                              alignment.dcse
+[-v]  Verbosity (0 is almost silent)           2
+
+EndOfIntro
+}
+
+sub showhelp {
+print <<EndOfHelp;
+
+Example:
+
+secondchance -a 16S.meg -g HYDRA
+
+Some more information:
+
+The "guide" is the sequence for which the secondary
+structure is known (or there is a good hypothesis
+for it). The guide file must contain only one 
+sequence, and the secondary structure data must be
+coded in DCSE format. There is no official definition
+for the DCSE file format. For more information on 
+the DCSE format, http://visit rrna.uia.ac.be/rnaviz/.
+
+The alignment contains a matrix of aligned sequences.
+Theoretically, these can be in any of the formats
+supported by BioPerl. When exporting from MacClade, I
+have found that only the "mega" format works reliably.
+I suggest that you use it. If you are brave you can
+try another alignment file format, but be sure to let 
+secondchance know what it is.
+
+You must specify the name of the guide sequence as it
+appears in the alignment. The guide sequence must be 
+exactly the same in the guide file and in the alignment.
+
+This script is not the brightest, and will make some
+dumb mistakes if you let it. The most obvious problem
+is that it will sometimes introduce dashes into helix 
+names if there is a gap in the guide sequence in the
+alignment. This problem can be solved by moving the 
+position of the name a bit in the guide file.
+
+EndOfHelp
+}
+
+

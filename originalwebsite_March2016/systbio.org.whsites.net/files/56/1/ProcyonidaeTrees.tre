@@ -1,0 +1,5 @@
+((Potos_flavus,Nasua_nasua),(Bassariscus_astutus,Procyon_lotor));
+(((Bassaricyon_alleni,Bassaricyon_gabbii,Bassaricyon_pauli),Potos_flavus),((Bassariscus_astutus,Bassariscus_sumichrasti),(((Nasua_narica,Nasua_nasua),Nasuella_olivacea),(Procyon_cancrivorus,Procyon_gloveralleni,Procyon_insularis,Procyon_lotor,Procyon_maynardi,Procyon_minor,Procyon_pygmaeus))));
+((((Bassaricyon_alleni,Bassaricyon_beddardi,Bassaricyon_gabbii,Bassaricyon_lasius,Bassaricyon_pauli),((Nasua_narica,Nasua_nasua),(Procyon_cancrivorus,Procyon_gloveralleni,Procyon_insularis,Procyon_lotor,Procyon_maynardi,Procyon_minor,Procyon_pygmaeus))),(Bassariscus_astutus,Bassariscus_sumichrasti)),Potos_flavus);
+(((Bassaricyon_alleni,Bassaricyon_beddardi,Bassaricyon_gabbii,Bassaricyon_lasius,Bassaricyon_pauli),Nasua_nasua),Potos_flavus,Bassariscus_astutus,Procyon_lotor);
+(((Bassaricyon_alleni,Bassaricyon_beddardi,Bassaricyon_gabbii,Bassaricyon_lasius,Bassaricyon_pauli),Potos_flavus),((Bassariscus_astutus,Bassariscus_sumichrasti),(Nasua_narica,Nasua_nasua),Nasuella_olivacea,(Procyon_cancrivorus,Procyon_gloveralleni,Procyon_insularis,Procyon_lotor,Procyon_maynardi,Procyon_minor,Procyon_pygmaeus)));

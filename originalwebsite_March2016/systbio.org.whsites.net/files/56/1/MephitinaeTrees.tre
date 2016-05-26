@@ -1,0 +1,5 @@
+((((Conepatus_chinga,Conepatus_leuconotus,Conepatus_mesoleucus),(Conepatus_humboldtii,Conepatus_semistriatus)),(Mephitis_macroura,Mephitis_mephitis)),(Spilogale_putorius,Spilogale_pygmaea));
+((Conepatus_chinga,Conepatus_mesoleucus),((Mephitis_macroura,Mephitis_mephitis),Spilogale_putorius));
+((Conepatus_chinga,Conepatus_leuconotus,Conepatus_mesoleucus),((Mephitis_macroura,Mephitis_mephitis),(Spilogale_putorius,Spilogale_pygmaea)));
+((Conepatus_chinga,Conepatus_humboldtii,Conepatus_mesoleucus),(Mephitis_macroura,Mephitis_mephitis),Spilogale_putorius);
+((Conepatus_chinga,Conepatus_humboldtii,Conepatus_leuconotus,Conepatus_mesoleucus,Conepatus_semistriatus),(Mephitis_macroura,Mephitis_mephitis),(Spilogale_putorius,Spilogale_pygmaea));
